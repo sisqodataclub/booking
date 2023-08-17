@@ -15,7 +15,6 @@ import requests
 from streamlit_lottie import st_lottie
 import time  
 import webbrowser
-import pyautogui
 import stripe
 from streamlit_option_menu import option_menu
 
@@ -927,7 +926,6 @@ if menu == "ONE-OFF CLEANING":
                         time.sleep(5)  # Wait for 5 seconds
 
                         webbrowser.open_new_tab(payment_link_url)                   
-                        pyautogui.hotkey('ctrl', 'w')
             
 
 
@@ -1116,10 +1114,6 @@ if menu == "ONE-OFF CLEANING":
 
 
                         webbrowser.open_new_tab('http://localhost:8502/tc') 
-
-
-
-                        pyautogui.hotkey('ctrl', 'w')
                         
 
         #_____________________________________________________________________________________________________________________________________
@@ -1320,7 +1314,6 @@ if menu == "ONE-OFF CLEANING":
 
 
                     webbrowser.open_new_tab('http://localhost:8502/tc')   
-                    pyautogui.hotkey('ctrl', 'w')
 
     ############################################################################################################################################
 
@@ -1408,7 +1401,6 @@ if menu == "ONE-OFF CLEANING":
             time.sleep(5)  # Wait for 5 seconds
 
             #webbrowser.open_new_tab(https://www.youtube.com/watch?v=_Um12_OlGgw)                   
-            #pyautogui.hotkey('ctrl', 'w')
 
 
     #build dataframe for price calculation
@@ -1972,7 +1964,6 @@ else:
                         time.sleep(5)  # Wait for 5 seconds
 
                         webbrowser.open_new_tab(payment_link_url)                   
-                        pyautogui.hotkey('ctrl', 'w')
             
 
             else:
@@ -2163,7 +2154,6 @@ else:
                         popup_message("Thanks for booking with Ddeep Cleaning Services. The booking details has been sent to the email you provided!")
                         time.sleep(5)  # Wait for 5 seconds
                         webbrowser.open_new_tab('http://localhost:8502/tc') 
-                        pyautogui.hotkey('ctrl', 'w')
                     
         #_____________________________________________________________________________________________________________________________________
 
@@ -2348,7 +2338,6 @@ else:
                     time.sleep(5)  # Wait for 5 seconds
 
                     webbrowser.open_new_tab('http://localhost:8502/tc')   
-                    pyautogui.hotkey('ctrl', 'w')
 
     ############################################################################################################################################
 
