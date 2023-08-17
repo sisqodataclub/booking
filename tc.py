@@ -1,4 +1,3 @@
-pip install  streamlit_option_menu
 
 import streamlit as st
 import pandas as pd
