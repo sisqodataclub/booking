@@ -1,11 +1,11 @@
+pip install  streamlit_option_menu
+
 import streamlit as st
 import pandas as pd
+from streamlit_option_menu import option_menu
+
 
 st.title("TERMS AND CONDITIONS")
-
-
-
-
 import datetime
 
 def shift_preferences():
@@ -62,7 +62,6 @@ def shift_preferences():
 
 
 
-from streamlit_option_menu import option_menu
 selected3 = option_menu(None, ["ONE-OFF CLEANING", "REGULAR CLEANING",  "CARPET CLEANING ONLY"], 
         icons=['house', 'cloud-upload', "list-task"], 
         menu_icon="cast", default_index=0, orientation="horizontal",
