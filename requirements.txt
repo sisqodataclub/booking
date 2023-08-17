@@ -5,5 +5,4 @@ gspread
 oauth2client
 requests
 streamlit_lottie
-pyautogui
 stripe
