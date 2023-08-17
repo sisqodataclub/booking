@@ -1,19 +1,9 @@
 pandas==1.5.3
 streamlit==1.21.0
 streamlit_option_menu==0.3.2
-openpyxl ==3.1.2
-deta == 1.1.0
-plotly-express ==0.4.0
-datetime
-smtplib
-email
-re
 gspread
 oauth2client
-json
 requests
 streamlit_lottie
-time
-webbrowser
 pyautogui
 stripe
