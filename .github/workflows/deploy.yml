@@ -1,10 +1,9 @@
-name: Deploy Streamlit App
+name: My GitHub Action Workflow
 
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,20 +12,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
       - name: Set up Google Service Account
         run: |
           echo "${{ secrets.SERVICE_ACCOUNT }}" > service_account.json
-          export GOOGLE_APPLICATION_CREDENTIALS=service_account.json
+          export SERVICE_ACCOUNT="$(cat service_account.json)"
 
       - name: Deploy Streamlit App
         run: |
