@@ -62,13 +62,9 @@ with st.container():
 @st.cache_data()
 def loading_data():
     # Get the JSON key from the secret
-    service_account_json = os.getenv('SERVICE_ACCOUNT')
-    service_account_path = 'service_account.json'
-    # Write the JSON key to a file
-    with open(service_account_path, 'w') as f:
-        f.write(service_account)
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(service_account_path, scope)
+    service_account_json = os.getenv('SERVICE_ACCOUNT')
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account, scope)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
