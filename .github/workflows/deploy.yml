@@ -27,7 +27,3 @@ jobs:
         run: |
           echo "${{ secrets.SERVICE_ACCOUNT }}" > service_account.json
           export GOOGLE_APPLICATION_CREDENTIALS=service_account.json
-
-      - name: Deploy Streamlit App
-        run: |
-          streamlit run fin.py  # Run the Streamlit app
