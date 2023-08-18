@@ -64,7 +64,14 @@ with st.container():
 def loading_data():
     # Get the JSON key from the secret
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(service_account, scope)
+    # Load the JSON content from the environment variable
+    service_account_json = os.environ.get('SERVICE_ACCOUNT_JSON')
+
+# Convert JSON string to a dictionary
+    service_account_dict = json.loads(service_account_json)
+
+# Create credentials from the dictionary
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account_dict, scope)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
@@ -96,7 +103,14 @@ def loading_data():
 
 ##############################################################################################################
 scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\d\Downloads\service_account.json', scope)
+# Load the JSON content from the environment variable
+service_account_json = os.environ.get('SERVICE_ACCOUNT_JSON')
+
+# Convert JSON string to a dictionary
+service_account_dict = json.loads(service_account_json)
+
+# Create credentials from the dictionary
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account_dict, scope)
 client = gspread.authorize(credentials)
 
 yesno = ['Yes','No']
