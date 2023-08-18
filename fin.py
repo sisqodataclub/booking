@@ -66,7 +66,7 @@ def loading_data():
     service_account_path = 'service_account.json'
     # Write the JSON key to a file
     with open(service_account_path, 'w') as f:
-        f.write(service_account_json)
+        f.write(service_account)
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name(service_account_path, scope)
     client = gspread.authorize(credentials)
