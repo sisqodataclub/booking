@@ -1,22 +1,33 @@
-name: My GitHub Action Workflow
+name: Deploy Streamlit App  # Name of the workflow
 
 on:
   push:
     branches:
-      - main
+      - main  # The branch that triggers the workflow
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  deploy:  # Name of the job
+    runs-on: ubuntu-latest  # Runner environment
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # Action to checkout the repository code
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Python version to set up
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Install dependencies from requirements.txt
 
       - name: Set up Google Service Account
         run: |
           echo "${{ secrets.SERVICE_ACCOUNT }}" > service_account.json
-          export SERVICE_ACCOUNT="$(cat service_account.json)"
+          export GOOGLE_APPLICATION_CREDENTIALS=service_account.json
 
       - name: Deploy Streamlit App
         run: |
-          streamlit run fin.py
+          streamlit run fin.py  # Run the Streamlit app
