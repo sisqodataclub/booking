@@ -66,12 +66,9 @@ def loading_data():
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
     # Load the JSON content from the environment variable
     service_account_json = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
-
-# Convert JSON string to a dictionary
-    service_account_dict = json.loads(service_account_json)
-
+    
 # Create credentials from the dictionary
-    credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account_dict, scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account_json, scope)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
