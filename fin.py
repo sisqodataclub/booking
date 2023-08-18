@@ -65,7 +65,7 @@ def loading_data():
     # Get the JSON key from the secret
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
     # Load the JSON content from the environment variable
-    service_account_json = os.environ.get('SERVICE_ACCOUNT_JSON')
+    service_account_json = os.environ.get('SERVICE_ACCOUNT')
 
 # Convert JSON string to a dictionary
     service_account_dict = json.loads(service_account_json)
