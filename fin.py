@@ -53,10 +53,22 @@ with st.container():
 ##########################################################################################################################################
 #LOAD DATA
 
+
+
+
+# Authorize with the credentials
+
+
 @st.cache_data()
 def loading_data():
+    # Get the JSON key from the secret
+    service_account_json = os.getenv('SERVICE_ACCOUNT')
+    service_account_path = 'service_account.json'
+    # Write the JSON key to a file
+    with open(service_account_path, 'w') as f:
+        f.write(service_account_json)
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\d\Downloads\service_account.json', scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(service_account_path, scope)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
