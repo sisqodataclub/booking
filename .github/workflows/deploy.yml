@@ -1,15 +1,29 @@
-name: Deploy Streamlit App  # Name of the workflow
+name: My Job
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  my-job:
-    name: My Job
+  my_job:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v3
-      - name: Decrypt large secret
-        run: ./decrypt_secret.sh
-        env:
-          LARGE_SECRET_PASSPHRASE: ${{ secrets.SERVICE_ACCOUNT }}
+    - name: Checkout code
+      uses: actions/checkout@v2
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install nbdev
+
+    - name: Run Tests
+      env:
+        SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+      run: nbdev_test_nbs
