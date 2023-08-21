@@ -8,21 +8,19 @@ on:
 jobs:
   deploy:  # Name of the job
     runs-on: ubuntu-latest  # Runner environment
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Action to checkout the repository code
+        uses: actions/checkout@v3  # Action to checkout the repository code
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Google Auth
+        uses: 'google-github-actions/auth@v0'
         with:
-          python-version: 3.x  # Python version to set up
+          #python-version: 3.x  # Python version to set up
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}" 
+          service_account: "${{ secrets.SA_EMAIL }}"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Install dependencies from requirements.txt
-      - name: Set up Google Service Account
-        run: |
-          echo "${{ secrets.SERVICE_ACCOUNT }}" > service_account.json
-          export GOOGLE_APPLICATION_CREDENTIALS=service_account.json
+      
