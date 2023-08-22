@@ -56,9 +56,6 @@ with st.container():
 ##########################################################################################################################################
 #LOAD DATA
 
-
-
-
 # Authorize with the credentials
 
 
@@ -68,10 +65,11 @@ def loading_data():
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
     # Load the JSON content from the environment variable
-    service_account_json = os.environ['GOOGLE_CREDENTIALS']
+    google_api_credentials = st.secrets['google_api_credentials']
+
 
     # Create credentials from the JSON string
-    credentials = Credentials.from_authorized_user_info(service_account_json, scopes=scope)
+    credentials = service_account.Credentials.from_service_account_info(google_api_credentials, scopes)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
