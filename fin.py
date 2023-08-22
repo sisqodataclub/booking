@@ -71,7 +71,7 @@ def loading_data():
 
 
     # Create credentials from the JSON string
-    credentials = service_account.Credentials.from_service_account_info(google_api_credentials, scopes)
+    credentials = service_account.Credentials.from_service_account_info(google_api_credentials, scope)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
