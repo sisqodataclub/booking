@@ -18,6 +18,8 @@ import webbrowser
 import stripe
 from streamlit_option_menu import option_menu
 import os
+from google.oauth2.credentials import Credentials
+
 
 #####################################################################################################################
 #PAGE SETUP
@@ -64,11 +66,12 @@ with st.container():
 def loading_data():
     # Get the JSON key from the secret
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+
     # Load the JSON content from the environment variable
-    service_account_json = os.environ.get('credentials_json')
-    
-# Create credentials from the dictionary
-    credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account_json, scope)
+    service_account_json = os.environ['credentials_json']
+
+    # Create credentials from the JSON string
+    credentials = Credentials.from_authorized_user_info(service_account_json, scopes=scope)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
