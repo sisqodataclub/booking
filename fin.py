@@ -65,7 +65,7 @@ def loading_data():
     # Get the JSON key from the secret
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
     # Load the JSON content from the environment variable
-    service_account_json = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+    service_account_json = os.environ.get('credentials_json')
     
 # Create credentials from the dictionary
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account_json, scope)
