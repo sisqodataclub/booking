@@ -964,8 +964,6 @@ if menu == "ONE-OFF CLEANING":
                         time.sleep(5)  # Wait for 5 seconds
 
                         webbrowser.open_new_tab(payment_link_url)                   
-            
-
 
             else:
 
@@ -984,8 +982,6 @@ if menu == "ONE-OFF CLEANING":
                         
                         personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'property_type': option_services, 'service_type': option_services2, 'Rubbish_Removal':rubbish_rem, 'Total':net})
 
-                        scope= ['https://www.googleapis.com/auth/spreadsheets','https://www.googleapis.com/auth/drive']
-                        credentials=ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\d\Downloads\service_account.json', scope)
                         client=gspread.authorize(credentials)
 
                         personal_info_sheet=client.open('db_try').worksheet('Sheet14')
@@ -1174,10 +1170,6 @@ if menu == "ONE-OFF CLEANING":
                     
                     quote_info_df = pd.DataFrame({'name': inv_name,'addeess': inv_address_list, 'email': inv_email_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str})
 
-
-
-                    scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-                    credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\d\Downloads\service_account.json', scope)
                     client = gspread.authorize(credentials)
 
                     quote_info_sheet=client.open('db_try').worksheet('quote_info')
@@ -1396,10 +1388,6 @@ if menu == "ONE-OFF CLEANING":
                 inv_email_list1=[]
                 customer_comment_list=[]
 
-
-
-
-
                 inv_name_list1.append(inv_name1)
                 inv_address_list1.append(inv_address1)
                 inv_email_list1.append(inv_email1)
@@ -1409,10 +1397,6 @@ if menu == "ONE-OFF CLEANING":
                 
                 quote_info_df1 = pd.DataFrame({'name': inv_name1,'addeess': inv_address_list1, 'email': inv_email_list1, 'id': unique_id1, 'date': selected_start_date, 'time':selected_start_time, 'det': customer_comment_list})
 
-
-
-                scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-                credentials = ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\d\Downloads\service_account.json', scope)
                 client = gspread.authorize(credentials)
 
                 quote_info_sheet=client.open('db_try').worksheet('quote_info_comm')
@@ -1428,9 +1412,6 @@ if menu == "ONE-OFF CLEANING":
                 #for row in values1:
                 #    row.insert(0, unique_id)
 
-
-
-
                 #quote_summary.append_rows(values1)
 
 
@@ -1443,19 +1424,9 @@ if menu == "ONE-OFF CLEANING":
 
     #build dataframe for price calculation
 
-
-
-
-
-
 ########################################################################################################
 ########################################################################################################
 else:
-
-
-
-
-
     right_col2, left_col2 =st.columns(2)
 
         #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
@@ -1503,10 +1474,6 @@ else:
                     if quantity > 0:
                         unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
 
-
-
-
-
     # Check if the option already exists in the list
                         # Check if the option already exists in the list
 
@@ -1523,8 +1490,6 @@ else:
                         st.session_state.selected_quantity = selected_quantity
                         st.session_state.selected_unitprice = selected_unitprice
 
-                        scope= ['https://www.googleapis.com/auth/spreadsheets','https://www.googleapis.com/auth/drive']
-                        credentials=ServiceAccountCredentials.from_json_keyfile_name(r'C:\Users\d\Downloads\service_account.json', scope)
                         client=gspread.authorize(credentials)
                         sheet=client.open('db_try').worksheet('Sheet1')
 
@@ -2385,23 +2350,15 @@ else:
 
         with st.form("example_form2", clear_on_submit=True):
             
-
             st.write("Please tell us about your property and which areas you need cleaning")
 
             # Add a text area for customer comments with a larger height
             customer_comment = st.text_area("Tell us about your property:", height=150)
             
-
             st.write('---')
 
             selected_start_date, selected_start_time = select_time_and_date()
-            
-
-
             st.title('CONTACT DETAILS')
-
-
-
             st.write("Please enter your name, property address, and email:")
             inv_name1 = st.text_input("Enter Name")
             inv_address1 = st.text_input("Enter Property Address")
