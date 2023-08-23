@@ -962,6 +962,7 @@ if menu == "ONE-OFF CLEANING":
 
                         popup_message("Thanks for booking with Ddeep Cleaning Services. You will now be directed to a new page to complete your booking!")
                         time.sleep(5)  # Wait for 5 seconds
+                        st.write(payment_link_url)
 
                         webbrowser.open_new_tab(payment_link_url)                   
 
