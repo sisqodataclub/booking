@@ -65,7 +65,12 @@ with st.container():
 def loading_data():
     # Get the JSON key from the secret
     token = st.secrets.token.token
-    dbx = dropbox.Dropbox(token)
+    app_key = st.secrets.app_key.app_key
+    app_secret = st.secrets.app_secret.app_secret
+    
+    dbx = dropbox.Dropbox(app_key=app_key,
+                         app_secret=app_secret,
+                         oauth2_refresh_token=token)
     
     # Shared link to the Dropbox file
     dropbox_shared_link = 'https://www.dropbox.com/scl/fi/6ljr3yad6iha8f836t3wh/service_account.json?rlkey=rtjwzljz3othq96owz1938g19&dl=0'
@@ -110,8 +115,12 @@ def loading_data():
 
 ##############################################################################################################
 token = st.secrets.token.token
-dbx = dropbox.Dropbox(token)
-
+app_key = st.secrets.app_key.app_key
+app_secret = st.secrets.app_secret.app_secret
+    
+dbx = dropbox.Dropbox(app_key=app_key,
+                     app_secret=app_secret,
+                     oauth2_refresh_token=token)
 # Shared link to the Dropbox file
 dropbox_shared_link = 'https://www.dropbox.com/scl/fi/6ljr3yad6iha8f836t3wh/service_account.json?rlkey=rtjwzljz3othq96owz1938g19&dl=0'
 
