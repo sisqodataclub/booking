@@ -64,7 +64,7 @@ with st.container():
 @st.cache_data()
 def loading_data():
     # Get the JSON key from the secret
-    token = 'sl.BkqY_pz8L0clYKHChd01K3MYZUfSxDpBkCwK4fU57Rkv1HpjjiOk3GIZKIZG6wbFDOBTqN7oTkxTfSkM2GK1exCVv_VpICoSwXnLOQPiGnoHi8T0JG6CCJPwOGLetYuVwq3IE8wuO_kauTQjRJG77s0'
+    token = 'sl.Bkojs_TM3ZtJ7KqYaIR-b6Iz4Uh_DKEnQesMpnQPwUUAxZpvmGFCIBO5ciNfzc3HFFsnqVRzVOmtAII--5yhD7i3uTZBzs4_e_tZB3hWcu4JZ8dELGW6prNEgeT-sVQsvB2ijICw51W-whBcrsNURfg'
     dbx = dropbox.Dropbox(token)
     
     # Shared link to the Dropbox file
