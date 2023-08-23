@@ -20,7 +20,7 @@ from streamlit_option_menu import option_menu
 import os
 from google.oauth2.credentials import Credentials
 from google.oauth2 import service_account
-
+import dropbox
 
 
 #####################################################################################################################
@@ -64,14 +64,21 @@ with st.container():
 @st.cache_data()
 def loading_data():
     # Get the JSON key from the secret
+    token = 'sl.BkqY_pz8L0clYKHChd01K3MYZUfSxDpBkCwK4fU57Rkv1HpjjiOk3GIZKIZG6wbFDOBTqN7oTkxTfSkM2GK1exCVv_VpICoSwXnLOQPiGnoHi8T0JG6CCJPwOGLetYuVwq3IE8wuO_kauTQjRJG77s0'
+    dbx = dropbox.Dropbox(token)
+    
+    # Shared link to the Dropbox file
+    dropbox_shared_link = 'https://www.dropbox.com/scl/fi/6ljr3yad6iha8f836t3wh/service_account.json?rlkey=rtjwzljz3othq96owz1938g19&dl=0'
+    
+    md, response = dbx.sharing_get_shared_link_file(url=dropbox_shared_link, path="/service_account.json")
+
+    json_content = response.content
+    
+    # Load the JSON content into a dictionary
+    credentials_info = json.loads(json_content)
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(credentials_info, scope)
 
-    # Load the JSON content from the environment variable
-    google_api_credentials = st.secrets['google_api_credentials']
-
-
-    # Create credentials from the JSON string
-    credentials = service_account.Credentials.from_service_account_info(google_api_credentials, scope)
     client = gspread.authorize(credentials)
     
     # Fetch data from prop_type sheet
@@ -102,15 +109,24 @@ def loading_data():
 
 
 ##############################################################################################################
+token = 'sl.BkqY_pz8L0clYKHChd01K3MYZUfSxDpBkCwK4fU57Rkv1HpjjiOk3GIZKIZG6wbFDOBTqN7oTkxTfSkM2GK1exCVv_VpICoSwXnLOQPiGnoHi8T0JG6CCJPwOGLetYuVwq3IE8wuO_kauTQjRJG77s0'
+dbx = dropbox.Dropbox(token)
+
+# Shared link to the Dropbox file
+dropbox_shared_link = 'https://www.dropbox.com/scl/fi/6ljr3yad6iha8f836t3wh/service_account.json?rlkey=rtjwzljz3othq96owz1938g19&dl=0'
+
+md, response = dbx.sharing_get_shared_link_file(url=dropbox_shared_link, path="/service_account.json")
+
+json_content = response.content
+
+# Load the JSON content into a dictionary
+credentials_info = json.loads(json_content)
+
+
+
 scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-# Load the JSON content from the environment variable
-service_account_json = os.environ.get('SERVICE_ACCOUNT')
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(credentials_info, scope)
 
-# Convert JSON string to a dictionary
-service_account_dict = json.loads(service_account_json)
-
-# Create credentials from the dictionary
-credentials = ServiceAccountCredentials.from_json_keyfile_dict(service_account_dict, scope)
 client = gspread.authorize(credentials)
 
 yesno = ['Yes','No']
