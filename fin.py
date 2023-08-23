@@ -366,7 +366,7 @@ def display_book_reg():
 
 name, address, email, num, inv_name, inv_address, inv_email, name_reg, address_reg, email_reg, num_reg, payment_method_reg, terms_and_conditions_reg = "", "","", "","","","","", "","", "","",""
 
-stripe.api_key = "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" 
+stripe.api_key = st.secrets.stripe.stripe
 
 
 def create_payment_link(amount, currency="gbp", success_url=None, cancel_url=None):
