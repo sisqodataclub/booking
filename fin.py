@@ -28,6 +28,7 @@ import dropbox
 
 
 st.set_page_config(page_title='BOOKING SPACE', layout='wide')
+#Remove “Made with Streamlit”, Hamburger Icon Menu & Streamlit Header
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -38,7 +39,7 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
-
+####################################################################################################
 def load_lottieurl(url):
     r = requests.get(url)
     if r.status_code != 200:
