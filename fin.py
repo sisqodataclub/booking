@@ -58,7 +58,7 @@ lottie_pic1 = load_lottiefile("images/calendar.json")  # replace link to local l
 #_________________________________________________________________________________________________________________
 
 with st.container():
-    left_col, right_col, mid_col=st.columns(2)
+    left_col, right_col=st.columns(2)
     with left_col:
         
         st_lottie(lottie_pic1, height=100, width=150, key="coding")
