@@ -25,6 +25,9 @@ import dropbox
 
 #####################################################################################################################
 #PAGE SETUP
+
+
+st.set_page_config(page_title='BOOKING SPACE', layout='wide')
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -35,7 +38,7 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
-st.set_page_config(page_title='BOOKING SPACE', layout='wide')
+
 def load_lottieurl(url):
     r = requests.get(url)
     if r.status_code != 200:
