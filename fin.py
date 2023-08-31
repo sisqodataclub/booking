@@ -829,15 +829,24 @@ if menu == "ONE-OFF CLEANING":
                         personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'property_type': option_services, 'service_type': option_services2, 'Rubbish Removal':rubbish_rem, 'Total':net})
 
                         personal_info_sheet=client.open('db_try').worksheet('personal_info')
-                        sheet4=client.open('db_try').worksheet('Sheet4')
+                        booking_summary=client.open('db_try').worksheet('booking_summary')
 
                         personal_info_data=personal_info_df.values.tolist()
                         personal_info_sheet.append_rows(personal_info_data)
 
                         values1 = new_df.values.tolist()
+                        # Adding the unique ID to each row
+                        for row in values1:
+                            row.insert(0, unique_id)
+                        
                         values2= new_df_ext.values.tolist()
-                        sheet4.append_rows(values1)
-                        sheet4.append_rows(values2)
+
+                        # Adding the unique ID to each row
+                        for row in values2:
+                            row.insert(0, unique_id)
+
+                        booking_summary.append_rows(values1)
+                        booking_summary.append_rows(values2)
 
 
                         html_template = """
@@ -953,7 +962,7 @@ if menu == "ONE-OFF CLEANING":
                         smtp_username = "clean@ddeepcleaningservices.com"
                         smtp_password = "acrmtrkgyezawleg"
                         email_from = "clean@ddeepcleaningservices.com"
-                        email_to = 'fd92uk@gmail.com'
+                        email_to = email
                         email_subject = "INVOICE@DDEEP CLEANING SERVICES"
                         email_body = "Thank you for choosing Ddeep Cleaning Services for your cleaning needs. We look forward to serving you again and exceeding your expectations. Please find attached your booking invoice."
 
@@ -979,14 +988,10 @@ if menu == "ONE-OFF CLEANING":
                         except Exception as e:
                             st.error(f"Error sending email: {str(e)}")
 
-
-
-
                         net_in_stripe_format = int(net * 100)
-                        payment_link_url = create_payment_link(net_in_stripe_format, currency="gbp", success_url="https://example.com/success", cancel_url="https://example.com/cancel")  # Replace this with the actual function call to create the payment link
+                        payment_link_url = create_payment_link(net_in_stripe_format, currency="gbp", success_url="https://www.ddeepcleaningservices.com/", cancel_url="https://www.ddeepcleaningservices.com/")  # Replace this with the actual function call to create the payment link
                         
                         button_placeholder.empty()
-
 
                         popup_message("Thanks for booking with Ddeep Cleaning Services. You will now be directed to a new page to complete your booking!")
                         time.sleep(5)  # Wait for 5 seconds
