@@ -116,11 +116,28 @@ def loading_data():
     kitchen_opt_sheet = client.open('db_try').worksheet('kitchen_opt')
     kitchen_opt_values = kitchen_opt_sheet.col_values(1)
     kitchen_opt = [value for value in kitchen_opt_values if value]
+
+    service_type1_sheet = client.open('db_try').worksheet('service_type1')
+    service_type1_values = service_type1_sheet.col_values(1)
+    service_type1 = [value for value in service_type1_values if value]
+
+    commercial_prop_sheet = client.open('db_try').worksheet('commercial_prop')
+    commercial_prop_values = commercial_prop_sheet.col_values(1)
+    commercial_prop = [value for value in commercial_prop_values if value]
+
+    sofa_upsterly_types_sheet = client.open('db_try').worksheet('sofa_upsterly_types')
+    sofa_upsterly_types_values = sofa_upsterly_types_sheet.col_values(1)
+    sofa_upsterly_types = [value for value in sofa_upsterly_types_values if value]
+
+    prices_sheet = client.open('db_try').worksheet('prices')
+    prices_values = prices_sheet.get_all_values()
+    prices = pd.DataFrame(prices_values[1:], columns=prices_values[0])
+
     
     # Return the fetched data as a list of lists
-    return [prop_type, service_type, options, kitchen_opt]
+    return [prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, prices]
 # Call the function to get the data
-[prop_type, service_type, options, kitchen_opt] = loading_data()
+[prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, prices] = loading_data()
 
 
 
@@ -153,17 +170,7 @@ yesno = ['Yes','No']
 bar_checklist=['TABLE: Wipe Down tables','BAR: Wipe Down the Bar',
                 'FLOORS: Sweep and mop floors','BINS: Empty and sanitize trash cans']
 
-prices_dict = {'Item': ['House', 'Flat', 'Bungalow', 'Pub/Restaurant/Club', 'One Off cleaning', 
-                        'Regular cleaning', 'Bedroom','Bathroom','Seperate Toilet','Diningroom','Livingroom','Kitchen',
-            'Study/Utility Room', 'Staircases', 'Garage','Conservatory','Balcony', 'FRIDGE/FREEZER','FRIDGE','FREEZER','AMERICAN STYLE FRIDGE (LARGE FRIDGE)','SINGLE OVEN',
-              'DOUBLE OVEN','RANGE COOKER OVEN','AGA OVEN','MICROWAVE','WASHING MACHINE',
-              'DISH WASHER','HOB','HOB EXTRACTOR HOODS','1 seat','2 Seat', 'L-Shape'], 
-            'Price': [5, 10, 5,1,10,5,20,30,10,25,25,25,10,5,15,15,10,15,10,5,20,25,35,25,25,5,5,5,5,5,10,20,25]}
-prices = pd.DataFrame(prices_dict)
 
-service_type1=['End of Tenancy/Moving in', 'One-off deep cleaning(Living in)']
-commercial_prop=['Bar/Pub/Restaurant', 'Takeway', 'Offices', 'Other']
-sofa_upsterly_types=['1 seat', '2 Seat', 'L-Shape']
 paym =['Card','Bank Transfer', 'Cash']
 
 
@@ -421,6 +428,39 @@ def create_payment_link(amount, currency="gbp", success_url=None, cancel_url=Non
 
 ######################################################################################################################################
 
+selected_days = []
+check_list=[]
+selected_options=[]
+selected_options_extr=[]
+selected_options_comm=[]
+selected_price=[]
+carpet_cleaning=[]
+condition_toilet=[]
+selected_choice=[]
+selected_quantity=[]
+selected_unitprice=[]
+receipt =[]
+name_list=[]
+address_list=[]
+email_list=[]
+num_list=[]
+payment_method_list=[]
+post_code_list=[]
+#______________________________________________________________________________________________
+inv_name_list=[]
+inv_address_list=[]
+inv_email_list=[]
+
+index=1
+
+#____________________________________________________________________________________________________________
+
+if 'selected_options' not in st.session_state:
+    st.session_state.selected_options = []
+
+if 'selected_options_extr' not in st.session_state:
+    st.session_state.selected_options_extr = []
+
 #DESIGN MENU
 
 menu = option_menu(None, ["ONE-OFF CLEANING", "REGULAR CLEANING"], 
@@ -466,41 +506,6 @@ st.write('---')
 
 
 #-------------------------------------------------------------------------------------------------------
-selected_days = []
-check_list=[]
-selected_options=[]
-selected_options_extr=[]
-selected_options_comm=[]
-selected_price=[]
-carpet_cleaning=[]
-condition_toilet=[]
-selected_choice=[]
-selected_quantity=[]
-selected_unitprice=[]
-receipt =[]
-
-
-name_list=[]
-address_list=[]
-email_list=[]
-num_list=[]
-payment_method_list=[]
-post_code_list=[]
-#______________________________________________________________________________________________
-inv_name_list=[]
-inv_address_list=[]
-inv_email_list=[]
-
-index=1
-
-#____________________________________________________________________________________________________________
-
-if 'selected_options' not in st.session_state:
-    st.session_state.selected_options = []
-
-if 'selected_options_extr' not in st.session_state:
-    st.session_state.selected_options_extr = []
-
 popup_message5("Click arrow to View Summary!")
 
 
@@ -583,7 +588,7 @@ if menu == "ONE-OFF CLEANING":
 
 
         #st.write(f"You selected {st.session_state.selected_options}!")
-        selected = pd.DataFrame({'Summary': st.session_state.selected_options})
+        selected = pd.DataFrame({'Selected Items': st.session_state.selected_options})
 
         st.table(selected)
 
