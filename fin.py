@@ -582,7 +582,10 @@ if menu == "ONE-OFF CLEANING":
                 
 
 
-        st.write(f"You selected {st.session_state.selected_options}!")
+        #st.write(f"You selected {st.session_state.selected_options}!")
+        selected = pd.DataFrame({'Summary': st.session_state.selected_options})
+
+        st.table(selected)
 
 
     #___________________________________________________________________________________________________________________
