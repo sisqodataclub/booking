@@ -450,7 +450,7 @@ post_code_list=[]
 inv_name_list=[]
 inv_address_list=[]
 inv_email_list=[]
-
+selected_options_data=[]
 index=1
 
 #____________________________________________________________________________________________________________
@@ -473,6 +473,10 @@ menu = option_menu(None, ["ONE-OFF CLEANING", "REGULAR CLEANING"],
         "nav-link-selected": {"background-color": "green"},
     }
 )
+
+selected_options_data.append(menu)
+
+
 
 st.sidebar.success('BOOKING SUMMARY')
 
@@ -826,7 +830,7 @@ if menu == "ONE-OFF CLEANING":
                         #option_services1_list.append(option_services1)
                         
                         unique_id = generate_unique_id(email)
-                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'property_type': option_services, 'service_type': option_services2, 'Rubbish Removal':rubbish_rem, 'Total':net})
+                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'frequency':selected_options_data,'property_type': option_services, 'service_type': option_services2, 'Rubbish Removal':rubbish_rem, 'Total':net})
 
                         personal_info_sheet=client.open('db_try').worksheet('personal_info')
                         booking_summary=client.open('db_try').worksheet('booking_summary')
@@ -1014,20 +1018,28 @@ if menu == "ONE-OFF CLEANING":
                         payment_method_list.append(payment_method)
                         unique_id = generate_unique_id(email)
                         
-                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'property_type': option_services, 'service_type': option_services2, 'Rubbish_Removal':rubbish_rem, 'Total':net})
+                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'frequency':selected_options_data,'property_type': option_services, 'service_type': option_services2, 'Rubbish_Removal':rubbish_rem, 'Total':net})
 
-                        client=gspread.authorize(credentials)
 
-                        personal_info_sheet=client.open('db_try').worksheet('Sheet14')
-                        sheet4=client.open('db_try').worksheet('Sheet4')
+                        personal_info_sheet=client.open('db_try').worksheet('personal_info')
+                        booking_summary=client.open('db_try').worksheet('booking_summary')
 
                         personal_info_data=personal_info_df.values.tolist()
                         personal_info_sheet.append_rows(personal_info_data)
 
                         values1 = new_df.values.tolist()
+                        # Adding the unique ID to each row
+                        for row in values1:
+                            row.insert(0, unique_id)
+                        
                         values2= new_df_ext.values.tolist()
-                        sheet4.append_rows(values1)
-                        sheet4.append_rows(values2)
+
+                        # Adding the unique ID to each row
+                        for row in values2:
+                            row.insert(0, unique_id)
+
+                        booking_summary.append_rows(values1)
+                        booking_summary.append_rows(values2)
 
 
                         html_template = """
@@ -1146,7 +1158,7 @@ if menu == "ONE-OFF CLEANING":
                         smtp_username = "clean@ddeepcleaningservices.com"
                         smtp_password = "acrmtrkgyezawleg"
                         email_from = "clean@ddeepcleaningservices.com"
-                        email_to = 'fd92uk@gmail.com'
+                        email_to = email
                         email_subject = "INVOICE@DDEEP CLEANING SERVICES"
                         email_body = "Thank you for choosing Ddeep Cleaning Services for your cleaning needs. We look forward to serving you again and exceeding your expectations. Please find attached your booking invoice."
 
