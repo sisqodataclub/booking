@@ -540,16 +540,13 @@ if menu == "ONE-OFF CLEANING":
                         quantities[f'{sub_option}'] = sub_quantity
 
             elif option_pro in ['Bathroom', 'Seperate Toilet']:
-                toilet_condition= st.radio(f'Presence of feces outside the toilet {option_pro}:', yesno)
+                toilet_condition= st.radio(f'Presence of feces outside the toilet {option_pro}:', yesno, index=1)
                 condition_toilet.append(toilet_condition)
-
-
             else:
-                quantity_carpet= st.radio(f'Do you want carpet wash and dry in the {option_pro}:', yesno)
+                quantity_carpet= st.radio(f'Do you want carpet wash and dry in the {option_pro}:', yesno, index=1)
                 carpet_cleaning.append(quantity_carpet)
-
-                    
-            submit_button = st.button('Add option')
+                
+            submit_button = st.button('Add To Cart')
             if submit_button:
                 selected_options = st.session_state.get('selected_options', [])
                 selected_choice = st.session_state.get('selected_choice', [])
@@ -1183,17 +1180,11 @@ if menu == "ONE-OFF CLEANING":
                             st.success("Email sent successfully!")
                         except Exception as e:
                             st.error(f"Error sending email: {str(e)}")
-
-
+                            
                         button_placeholder.empty()
-
-
                         popup_message("Thanks for booking with Ddeep Cleaning Services. The booking details has been sent to the email you provided!")
                         time.sleep(5)  # Wait for 5 seconds
-
-
-
-                        webbrowser.open_new_tab('http://localhost:8502/tc') 
+                        webbrowser.open_new_tab('https://www.google.co.uk/') 
                         
 
         #_____________________________________________________________________________________________________________________________________
@@ -1212,16 +1203,10 @@ if menu == "ONE-OFF CLEANING":
                     inv_email_list.append(inv_email)
 
                     unique_id = generate_unique_id(inv_email)
-
-                    
                     quote_info_df = pd.DataFrame({'name': inv_name,'addeess': inv_address_list, 'email': inv_email_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str})
-
                     client = gspread.authorize(credentials)
-
                     quote_info_sheet=client.open('db_try').worksheet('quote_info')
                     quote_summary=client.open('db_try').worksheet('quote_summary')
-
-
                     quote_info_data=quote_info_df.values.tolist()
                     quote_info_sheet.append_rows(quote_info_data)
 
@@ -1230,10 +1215,6 @@ if menu == "ONE-OFF CLEANING":
                     # Adding the unique ID to each row
                     for row in values1:
                         row.insert(0, unique_id)
-
-
-
-
                     quote_summary.append_rows(values1)
 
                     #__________________________________________________________________________________________________________________
