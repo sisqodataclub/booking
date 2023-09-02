@@ -354,6 +354,18 @@ def display_extras():
     
     return rubbish_rem, sofa_clean, quantities
 rubbish_rem_price = 0
+
+
+def display_options():
+    # Display form for name, address, and number input
+    quantities={}
+    for sub_option in selected_options:
+            quantity_su = st.number_input(f'Quantity for {sub_option}:', min_value=0, value=0, step=1)
+            if quantity_su > 0:
+                    quantities[f'{sub_option}'] = quantity_su
+    
+    return quantities
+
 #=============================================================================================================================================
 
 def display_quote():
@@ -453,6 +465,22 @@ inv_email_list=[]
 selected_options_data=[]
 index=1
 
+
+options_with_icons = {
+    'Kitchen': '🍳',
+    'Bathroom': '🚿',
+    'Living Room': '🛋️',
+    'Bedroom': '🛏️',
+    'Garage': '🚗',
+    'Outdoor Area': '🌳',
+}
+
+
+
+# Create a dictionary to store the state of each option
+option_states = {}
+
+
 #____________________________________________________________________________________________________________
 
 if 'selected_options' not in st.session_state:
@@ -519,32 +547,21 @@ if menu == "ONE-OFF CLEANING":
 
         #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
     if option_services not in ['Commercial Property', 'Other']:
+        st.write("Select the areas of the property that need cleaning:")
+        quantity_su=0
+        with st.container():
+            right_col1, left_col1 = st.columns(2)
 
-        quantities = {}
-        quantity_carpet = None
-        toilet_condition = None  
-        with right_col2:
-            option_pro = st.selectbox('Select areas of the property that needs cleaning', options)
-            #quantity = st.number_input(f'Quantity for {option_pro}:', key=f'{option_pro}_quantity', min_value=0, value=0, step=1)
-            #quantity_carpet= st.radio(f'Do you want carpet wash and dry {option_pro}:', yesno, key=f'{option_pro}_carpet')
-        if option_pro:
-            with left_col2:
-                quantity = st.number_input(f'Quantity for {option_pro}:', min_value=0, value=0, step=1)
-            quantities[option_pro] = quantity
+        with right_col1:
+            for option, icon in options_with_icons.items():
+                option_states[option] = st.checkbox(f"{icon} {option}")
+            selected_options = [option for option, state in option_states.items() if state]
+        
+        with left_col1:
+            quantity_su=display_options()
 
-            if option_pro == 'Kitchen':
-                
-                for sub_option in kitchen_opt:
-                    sub_quantity = st.number_input(f'Quantity for {sub_option}:', min_value=0, value=0, step=1)
-                    if sub_quantity > 0:
-                        quantities[f'{sub_option}'] = sub_quantity
 
-            elif option_pro in ['Bathroom', 'Seperate Toilet']:
-                toilet_condition= st.radio(f'Presence of feces outside the toilet {option_pro}:', yesno, index=1)
-                condition_toilet.append(toilet_condition)
-            else:
-                quantity_carpet= st.radio(f'Do you want carpet wash and dry in the {option_pro}:', yesno, index=1)
-                carpet_cleaning.append(quantity_carpet)
+        
                 
             submit_button = st.button('Add To Cart')
             if submit_button:
