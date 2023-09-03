@@ -558,66 +558,18 @@ if menu == "ONE-OFF CLEANING":
                 selected_options = [option for option, state in option_states.items() if state]
             
             with left_col1:
-                quantity_su=display_options()
+                quantity_su1=display_options()
 
-        for option, quantity in quantity_su.items():
+        for option, quantity in quantity_su1.items():
             if quantity > 0:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
             selected_options.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
             st.session_state.selected_options = selected_options
-
-
-        
-                
-            submit_button = st.button('Add To Cart')
-            if submit_button:
-                selected_options = st.session_state.get('selected_options', [])
-                selected_choice = st.session_state.get('selected_choice', [])
-                selected_quantity =st.session_state.get('selected_quantity', [])
-                selected_unitprice= st.session_state.get('selected_unitprice', [])
-                
-                for option, quantity in quantities.items():
-                    if quantity > 0:
-                        unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
-
-
-    # Check if the option already exists in the list
-                        # Check if the option already exists in the list
-
-                        # Check if the option already exists in the list
-                        
-                        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        selected_options.append(f'{option} x ({quantity})  carpet-({quantity_carpet}) - £{unitprice}) human_feces-({toilet_condition}) ({timestamp})')
-                        selected_choice.append(f'{option}, {unitprice}')
-                        selected_quantity.append(f'{quantity}')
-                        selected_unitprice.append(f'{unitprice}')
-                                            
-                        st.session_state.selected_options = selected_options or [] # initialize with an empty list if it doesn't exist
-                        st.session_state.selected_choice = selected_choice or []
-                        st.session_state.selected_quantity = selected_quantity
-                        st.session_state.selected_unitprice = selected_unitprice
-
-                        sheet=client.open('db_try').worksheet('Sheet1')
-
-                        # Append the data to the Google Sheet
-                        data_to_append = list(zip(selected_options, selected_choice, selected_quantity, selected_unitprice))
-                        sheet.append_rows(data_to_append)
-
-                        # Optional: Clear the session_state variables after updating the Google Sheet
-                        data_to_append = []
-                        
-
-                # add receipt data to dataframe            
-                
-
-
-        #st.write(f"You selected {st.session_state.selected_options}!")
+ 
         selected = pd.DataFrame({'Selected Items': st.session_state.selected_options})
 
         st.table(selected)
-
-
     #___________________________________________________________________________________________________________________
         rubbish_rem, sofa_clean, quantity_su=display_extras()
 
