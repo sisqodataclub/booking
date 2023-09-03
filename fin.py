@@ -552,13 +552,20 @@ if menu == "ONE-OFF CLEANING":
         with st.container():
             right_col1, left_col1 = st.columns(2)
 
-        with right_col1:
-            for option, icon in options_with_icons.items():
-                option_states[option] = st.checkbox(f"{icon} {option}")
-            selected_options = [option for option, state in option_states.items() if state]
-        
-        with left_col1:
-            quantity_su=display_options()
+            with right_col1:
+                for option, icon in options_with_icons.items():
+                    option_states[option] = st.checkbox(f"{icon} {option}")
+                selected_options = [option for option, state in option_states.items() if state]
+            
+            with left_col1:
+                quantity_su=display_options()
+
+        for option, quantity in quantity_su.items():
+            if quantity > 0:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
+            selected_options.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
+            st.session_state.selected_options = selected_options
 
 
         
