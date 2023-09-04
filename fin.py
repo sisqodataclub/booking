@@ -355,7 +355,6 @@ def display_extras():
     return rubbish_rem, sofa_clean, quantities
 rubbish_rem_price = 0
 
-quantity_su1=0
 
 def display_options():
     # Display form for name, address, and number input
@@ -544,10 +543,11 @@ if menu == "ONE-OFF CLEANING":
         #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
     if option_services not in ['Commercial Property', 'Other']:
         st.write("Select the areas of the property that need cleaning:")
+        quantity_su1=0
+
         
         with st.container():
             right_col1, left_col1 = st.columns(2)
-
             with right_col1:
                 for option, icon in options_with_icons.items():
                     option_states[option] = st.checkbox(f"{icon} {option}")
@@ -614,31 +614,6 @@ if menu == "ONE-OFF CLEANING":
                 extracted_quant = match_quantity.group(1)
                 extracted_quantity.append(int(extracted_quant))
 
-        extracted_carpet = []
-
-        for xa in st.session_state.selected_options:
-            if 'carpet-(Yes)' in xa:
-                match_xa = re.search(r'\b(\d+)\b', xa)
-                if match_xa:
-                    quantity_xa = match_xa.group(1)
-                    extracted_quantity_xa = int(quantity_xa) * 20
-                    extracted_carpet.append(extracted_quantity_xa)
-            else:
-                extracted_carpet.append(int(0))
-
-
-        extracted_toilet = []
-
-        for xb in st.session_state.selected_options:
-            if 'human_feces-(Yes)' in xb:
-                match_xa = re.search(r'\b(\d+)\b', xb)
-                if match_xa:
-                    quantity_xa = match_xa.group(1)
-                    extracted_quantity_xa = int(quantity_xa) * 20
-                    extracted_toilet.append(extracted_quantity_xa)
-            else:
-                extracted_toilet.append(int(0))
-
 
         #_____________________________________________________________________________________________________________________________
 
@@ -667,7 +642,7 @@ if menu == "ONE-OFF CLEANING":
 
         #_______________________________________________________________________________________________________________________________-
         # Create a new DataFrame using the extracted values list
-        new_df = pd.DataFrame({'Item': item_list,'unit_price': extracted_values, 'quantity': extracted_quantity, 'carpet_price': extracted_carpet, 'toilet_condition':extracted_toilet})
+        new_df = pd.DataFrame({'Item': item_list,'unit_price': extracted_values, 'quantity': extracted_quantity})
 
         new_df_ext = pd.DataFrame({'Item': item_list_ext,'unit_price': extracted_values_ext, 'quantity': extracted_quantity_ext})
 
