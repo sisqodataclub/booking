@@ -470,10 +470,10 @@ index=1
 options_with_icons = {
     'Kitchen': '🍳',
     'Bathroom': '🚿',
-    'Living Room': '🛋️',
+    'Livingroom': '🛋️',
     'Bedroom': '🛏️',
     'Garage': '🚗',
-    'Outdoor Area': '🌳',
+    'Diningroom': '🌳',
 }
 
 
