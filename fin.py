@@ -565,7 +565,7 @@ if menu == "ONE-OFF CLEANING":
  
         #selected = pd.DataFrame({'Selected Items': st.session_state.selected_options})
 
-        #st.table(selected)
+        st.write(st.session_state.selected_options)
     #___________________________________________________________________________________________________________________
         rubbish_rem, sofa_clean, quantity_su=display_extras()
 
