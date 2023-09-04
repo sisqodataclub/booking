@@ -475,13 +475,8 @@ options_with_icons = {
     'Garage': '🚗',
     'Diningroom': '🌳',
 }
-
-
-
 # Create a dictionary to store the state of each option
 option_states = {}
-
-
 #____________________________________________________________________________________________________________
 
 if 'selected_options' not in st.session_state:
@@ -590,26 +585,7 @@ if menu == "ONE-OFF CLEANING":
         #st.write(selected_options_extr)
     ###########################################################################################################################################
         #______________________________________________________________________________________________________________________________________
-
-
-        removed_options = []
-
-        # Assuming you already have the selected_options in session_state
-        selected_options = st.session_state.get('selected_options', [])
-
-        # Create checkboxes for each option to allow the user to select options to remove
-        for option in selected_options:
-            removed = st.sidebar.checkbox(f"Remove '{option}'", key=f"remove_{option}")
-            if removed:
-                removed_options.append(option)
-
-        # Remove the selected options from the selected_options list
-        selected_options = [option for option in selected_options if option not in removed_options]
-
-        # Update the session_state with the modified selected_options list
-        st.session_state.selected_options = selected_options
-        st.sidebar.write('---')
-
+        
     #_______________________________________________________________________________________________________
 
         st.title('BOOKING SUMMARY')
@@ -698,8 +674,8 @@ if menu == "ONE-OFF CLEANING":
 
         #____________________________________________________________________________________________________________________________________________________________________________
 
-        #for option in st.session_state.selected_options:
-        #    st.sidebar.write(f'- {option}')
+        for option in st.session_state.selected_options:
+            st.sidebar.write(f'- {option}')
 
         for option in st.session_state.selected_options_extr:
 
