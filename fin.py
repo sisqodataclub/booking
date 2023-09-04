@@ -355,6 +355,7 @@ def display_extras():
     return rubbish_rem, sofa_clean, quantities
 rubbish_rem_price = 0
 
+quantity_su1=0
 
 def display_options():
     # Display form for name, address, and number input
@@ -548,7 +549,7 @@ if menu == "ONE-OFF CLEANING":
         #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
     if option_services not in ['Commercial Property', 'Other']:
         st.write("Select the areas of the property that need cleaning:")
-        quantity_su=0
+        
         with st.container():
             right_col1, left_col1 = st.columns(2)
 
@@ -567,9 +568,9 @@ if menu == "ONE-OFF CLEANING":
             selected_options.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
             st.session_state.selected_options = selected_options
  
-        selected = pd.DataFrame({'Selected Items': st.session_state.selected_options})
+        #selected = pd.DataFrame({'Selected Items': st.session_state.selected_options})
 
-        st.table(selected)
+        #st.table(selected)
     #___________________________________________________________________________________________________________________
         rubbish_rem, sofa_clean, quantity_su=display_extras()
 
