@@ -359,7 +359,7 @@ rubbish_rem_price = 0
 def display_options():
     # Display form for name, address, and number input
     quantities={}
-    for sub_option in selected_options:
+    for sub_option in check_list:
             quantity_su = st.number_input(f'Quantity for {sub_option}:', min_value=0, value=0, step=1)
             if quantity_su > 0:
                     quantities[f'{sub_option}'] = quantity_su
@@ -551,7 +551,7 @@ if menu == "ONE-OFF CLEANING":
             with right_col1:
                 for option, icon in options_with_icons.items():
                     option_states[option] = st.checkbox(f"{icon} {option}")
-                selected_options = [option for option, state in option_states.items() if state]
+                check_list = [option for option, state in option_states.items() if state]
             
             with left_col1:
                 quantity_su1=display_options()
