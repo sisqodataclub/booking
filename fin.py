@@ -646,7 +646,7 @@ if menu == "ONE-OFF CLEANING":
 
         new_df_ext = pd.DataFrame({'Item': item_list_ext,'unit_price': extracted_values_ext, 'quantity': extracted_quantity_ext})
 
-
+        st.table(new_df)
         #____________________________________________________________________________________________________________________________________________________________________________
 
         for option in st.session_state.selected_options:
