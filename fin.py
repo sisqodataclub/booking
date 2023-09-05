@@ -672,7 +672,7 @@ if menu == "ONE-OFF CLEANING":
         def calculate_total(new_df):
             total = 0
             for i, row in new_df.iterrows():
-                total += (row['unit_price'] * row['quantity']) + row['carpet_price'] 
+                total += (row['unit_price'] * row['quantity'])
             return total
 
 
