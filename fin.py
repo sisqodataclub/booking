@@ -337,7 +337,6 @@ def generate_unique_id(email):
 #=============================================================================================================================================
 
 quantity_su=0
-@st.cache_data(experimental_allow_widgets=True)
 def display_extras():
     st.write('---')
 
@@ -358,7 +357,6 @@ def display_extras():
     return rubbish_rem, sofa_clean, quantities
 rubbish_rem_price = 0
 
-@st.cache_data(experimental_allow_widgets=True)
 def display_options():
     # Display form for name, address, and number input
     quantities={}
@@ -368,7 +366,6 @@ def display_options():
                     quantities[f'{sub_option}'] = quantity_su
     
     return quantities
-@st.cache_data(experimental_allow_widgets=True)
 def display_appliances():
     # Display form for name, address, and number input
     quantities={}
