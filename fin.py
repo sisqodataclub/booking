@@ -594,7 +594,7 @@ if menu == "ONE-OFF CLEANING":
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
             selected_options_app.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
-            st.session_state.selected_app = selected_options_app
+            st.session_state.selected_options_app = selected_options_app
  
         st.write(st.session_state.selected_options_app)
         
