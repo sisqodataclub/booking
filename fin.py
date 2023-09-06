@@ -1437,136 +1437,54 @@ if menu == "ONE-OFF CLEANING":
 ########################################################################################################
 else:
     right_col2, left_col2 =st.columns(2)
-
-        #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
-    if option_services in ['House', 'Flat']:
-
-        quantities = {}
-        quantity_carpet = None
-        toilet_condition = None  
-        with right_col2:
-            option_pro = st.selectbox('Select areas of the property that needs cleaning', options)
-            #quantity = st.number_input(f'Quantity for {option_pro}:', key=f'{option_pro}_quantity', min_value=0, value=0, step=1)
-            #quantity_carpet= st.radio(f'Do you want carpet wash and dry {option_pro}:', yesno, key=f'{option_pro}_carpet')
-        if option_pro:
-            with left_col2:
-                quantity = st.number_input(f'Quantity for {option_pro}:', min_value=0, value=0, step=1)
-            quantities[option_pro] = quantity
-
-            if option_pro == 'Kitchen':
-                
-                for sub_option in kitchen_opt:
-                    sub_quantity = st.number_input(f'Quantity for {sub_option}:', min_value=0, value=0, step=1)
-                    if sub_quantity > 0:
-                        quantities[f'{sub_option}'] = sub_quantity
-
-            elif option_pro in ['Bathroom', 'Seperate Toilet']:
-                toilet_condition= st.radio(f'Presence of feces outside the toilet {option_pro}:', yesno)
-                condition_toilet.append(toilet_condition)
+    if option_services not in ['Commercial Property', 'Other']:
+        st.write("Select the areas of the property that need cleaning:")
+        quantity_su1=0
+        
+        with st.container():
+            right_col1, left_col1 = st.columns(2)
+            with right_col1:
+                for option, icon in options_with_icons.items():
+                    option_states[option] = st.checkbox(f"{icon} {option}")
+                check_list = [option for option, state in option_states.items() if state]
+            with left_col1:
+                quantity_su1=display_options()
 
 
-            else:
-                quantity_carpet= st.radio(f'Do you want carpet wash and dry in the {option_pro}:', yesno)
-                carpet_cleaning.append(quantity_carpet)
-
-                    
-            submit_button = st.button('Add option')
-            if submit_button:
-                selected_options = st.session_state.get('selected_options', [])
-                selected_choice = st.session_state.get('selected_choice', [])
-                selected_quantity =st.session_state.get('selected_quantity', [])
-                selected_unitprice= st.session_state.get('selected_unitprice', [])
-
-                
-                
-                for option, quantity in quantities.items():
-                    if quantity > 0:
-                        unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
-
-    # Check if the option already exists in the list
-                        # Check if the option already exists in the list
-
-                        # Check if the option already exists in the list
-                        
-                        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        selected_options.append(f'{option} x ({quantity})  carpet-({quantity_carpet}) - £{unitprice}) human_feces-({toilet_condition}) ({timestamp})')
-                        selected_choice.append(f'{option}, {unitprice}')
-                        selected_quantity.append(f'{quantity}')
-                        selected_unitprice.append(f'{unitprice}')
-                                            
-                        st.session_state.selected_options = selected_options or [] # initialize with an empty list if it doesn't exist
-                        st.session_state.selected_choice = selected_choice or []
-                        st.session_state.selected_quantity = selected_quantity
-                        st.session_state.selected_unitprice = selected_unitprice
-
-                        client=gspread.authorize(credentials)
-                        sheet=client.open('db_try').worksheet('Sheet1')
-
-                        # Append the data to the Google Sheet
-                        data_to_append = list(zip(selected_options, selected_choice, selected_quantity, selected_unitprice))
-                        sheet.append_rows(data_to_append)
-
-                        # Optional: Clear the session_state variables after updating the Google Sheet
-                        data_to_append = []
-                        
-
-                # add receipt data to dataframe            
-                
+        for option, quantity in quantity_su1.items():
+            if quantity > 0:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
+            selected_options.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
+            st.session_state.selected_options = selected_options
 
 
-        st.write(f"You selected {st.session_state.selected_options}!")
+        st.write(st.session_state.selected_options)
+        st.write('---')
+        quantity_su2=display_appliances()
 
-    ##################################################################################################################################
-    #___________________________________________________________________________________________________________________
+        for option, quantity in quantity_su2.items():
+            if quantity > 0:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
+            selected_options_app.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
+            st.session_state.selected_options_app = selected_options_app
+ 
+        st.write(st.session_state.selected_options_app)
+
+
+        #___________________________________________________________________________________________________________________
         rubbish_rem, sofa_clean, quantity_su=display_extras()
-
-
         for option, quantity in quantity_su.items():
             if quantity > 0:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-
                 unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
             selected_options_extr.append(f'{option} x ({quantity}) - £{unitprice}) Rubbish Removal-({rubbish_rem}) ({timestamp})')
             st.session_state.selected_options_extr = selected_options_extr
-        
-
         st.session_state.selected_options_extr = selected_options_extr
 
-        #st.write(selected_options_extr)
     ###########################################################################################################################################
-        #______________________________________________________________________________________________________________________________________
-
-
-        removed_options = []
-
-        # Assuming you already have the selected_options in session_state
-        selected_options = st.session_state.get('selected_options', [])
-
-        # Create checkboxes for each option to allow the user to select options to remove
-        for option in selected_options:
-            removed = st.sidebar.checkbox(f"Remove '{option}'", key=f"remove_{option}")
-            if removed:
-                removed_options.append(option)
-
-        # Remove the selected options from the selected_options list
-        selected_options = [option for option in selected_options if option not in removed_options]
-
-        # Update the session_state with the modified selected_options list
-        st.session_state.selected_options = selected_options
-        st.sidebar.write('---')
-
-    #___________________________________________________________________________________________________________________________
-
-    #-----------------------------------------------------------------------------------------------------------
-
-    ###############################################################################################################################################
-        
-
-        
-    #start_date_str = start_date.strftime("%Y-%m-%d")
-    #start_time_str = start_time.strftime("%H:%M:%S")
-
+  
 
     #_______________________________________________________________________________________________________
 
@@ -1578,18 +1496,13 @@ else:
         row_count = preferences_df1.shape[0]
         st.write(row_count)
 
-
-
         discount_code=st.text_input('Insert discount code')
 
-        
         item_list=[]
         for item in st.session_state.selected_options:
             match = re.search(r'\b(' + '|'.join(prices['Item']) + r')\b', item)
             if match:
-                item_list.append(match.group())
-        
-                
+                item_list.append(match.group())                
 
         # Create an empty list to store the extracted values
         extracted_values = []
@@ -1606,30 +1519,29 @@ else:
                 extracted_quant = match_quantity.group(1)
                 extracted_quantity.append(int(extracted_quant))
 
-        extracted_carpet = []
 
-        for xa in st.session_state.selected_options:
-            if 'carpet-(Yes)' in xa:
-                match_xa = re.search(r'\b(\d+)\b', xa)
-                if match_xa:
-                    quantity_xa = match_xa.group(1)
-                    extracted_quantity_xa = int(quantity_xa) * 20
-                    extracted_carpet.append(extracted_quantity_xa)
-            else:
-                extracted_carpet.append(int(0))
+        #____________________________________________________________________________________________________________________________
 
+        item_list_app=[]
+        for item in st.session_state.selected_options_app:
+            match = re.search(r'\b(' + '|'.join(prices['Item']) + r')\b', item)
+            if match:
+                item_list_app.append(match.group())                
 
-        extracted_toilet = []
+        # Create an empty list to store the extracted values
+        extracted_values_app = []
+        for x in item_list_app:
+            unitprice1 = prices.loc[prices['Item'] == x, 'Price'].values[0]
+            extracted_values_app.append(int(unitprice1))
 
-        for xb in st.session_state.selected_options:
-            if 'human_feces-(Yes)' in xb:
-                match_xa = re.search(r'\b(\d+)\b', xb)
-                if match_xa:
-                    quantity_xa = match_xa.group(1)
-                    extracted_quantity_xa = int(quantity_xa) * 20
-                    extracted_toilet.append(extracted_quantity_xa)
-            else:
-                extracted_toilet.append(int(0))
+        extracted_quantity_app = []
+
+        for eachquantity in st.session_state.selected_options_app:
+            # Extract the value using regular expressions to find the numbers inside parentheses
+            match_quantity = re.search(r'\((\d+)\)', eachquantity)
+            if match_quantity:
+                extracted_quant = match_quantity.group(1)
+                extracted_quantity_app.append(int(extracted_quant))        
 
 
         #_____________________________________________________________________________________________________________________________
@@ -1659,19 +1571,25 @@ else:
 
         #_______________________________________________________________________________________________________________________________-
         # Create a new DataFrame using the extracted values list
-        new_df_reg = pd.DataFrame({'Item': item_list,'unit_price': extracted_values, 'quantity': extracted_quantity, 'carpet_price': extracted_carpet, 'toilet_condition':extracted_toilet})
+        new_df_reg = pd.DataFrame({'Item': item_list,'unit_price': extracted_values, 'quantity': extracted_quantity})
 
         new_df_ext_reg = pd.DataFrame({'Item': item_list_ext,'unit_price': extracted_values_ext, 'quantity': extracted_quantity_ext})
 
+        new_df_app_reg = pd.DataFrame({'Item': item_list_app,'unit_price': extracted_values_app, 'quantity': extracted_quantity_app})
 
         #____________________________________________________________________________________________________________________________________________________________________________
 
-        #for option in st.session_state.selected_options:
-        #    st.sidebar.write(f'- {option}')
+        for option in st.session_state.selected_options:
+            st.sidebar.write(f'- {option}')
+
+
+        for option in st.session_state.selected_options_app:
+            st.sidebar.write(f'- {option}')
 
         for option in st.session_state.selected_options_extr:
-
             st.sidebar.write(f'- {option}')
+
+
 
         if option_services in ['House', 'Flat']:
 
@@ -1689,7 +1607,7 @@ else:
         def calculate_total(new_df):
             total = 0
             for i, row in new_df.iterrows():
-                total += (row['unit_price'] * row['quantity']) + row['carpet_price'] 
+                total += (row['unit_price'] * row['quantity'])
             return total
 
 
@@ -1698,10 +1616,6 @@ else:
             for i, row in new_df.iterrows():
                 total_ext += (row['unit_price'] * row['quantity'])
             return total_ext
-
-
-
-
 
 
         discount_dict = {'discount_code': ['ten', 'twenty'], 
@@ -1717,22 +1631,18 @@ else:
 
 
         total = calculate_total(new_df_reg)
+        total_app = calculate_total(new_df_app_reg)
         tot_ext = calculate_total_ext(new_df_ext_reg)
 
 
-
         if row_count== 0:
-            total_amount= (total+tot_ext+rubbish_rem_price)
+            total_amount= total+total_app+tot_ext+rubbish_rem_price
         else:
-            total_amount= (total+tot_ext+rubbish_rem_price)*row_count
-
-
-        
-
-        
+            total_amount= (total+total_app+tot_ext+rubbish_rem_price)*row_count
+            
 
         net=total_amount-(discount_tot/100)*total_amount
-
+        
         if row_count== 0:
             preferences_df1['Amount'] = net
         else:
