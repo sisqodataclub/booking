@@ -129,15 +129,19 @@ def loading_data():
     sofa_upsterly_types_values = sofa_upsterly_types_sheet.col_values(1)
     sofa_upsterly_types = [value for value in sofa_upsterly_types_values if value]
 
+    appliances_sheet = client.open('db_try').worksheet('appliances')
+    appliances_values = appliances_sheet.col_values(1)
+    appliances = [value for value in appliances_values if value]
+
     prices_sheet = client.open('db_try').worksheet('prices')
     prices_values = prices_sheet.get_all_values()
     prices = pd.DataFrame(prices_values[1:], columns=prices_values[0])
 
     
     # Return the fetched data as a list of lists
-    return [prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, prices]
+    return [prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices]
 # Call the function to get the data
-[prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, prices] = loading_data()
+[prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices] = loading_data()
 
 
 
@@ -178,8 +182,6 @@ paym =['Card','Bank Transfer', 'Cash']
 
 
 #DEFINE FUNCTIONS
-
-
 #=============================================================================================================================================
 def popup_message(message):
     st.markdown(
@@ -366,6 +368,17 @@ def display_options():
     
     return quantities
 
+def display_appliances():
+    # Display form for name, address, and number input
+    quantities={}
+    for sub_option in appliances:
+            quantity_su = st.number_input(f'Quantity for {sub_option}:', min_value=0, value=0, step=1)
+            if quantity_su > 0:
+                    quantities[f'{sub_option}'] = quantity_su
+    
+    return quantities
+
+
 #=============================================================================================================================================
 
 def display_quote():
@@ -442,8 +455,10 @@ def create_payment_link(amount, currency="gbp", success_url=None, cancel_url=Non
 
 selected_days = []
 check_list=[]
+check_list_app=[]
 selected_options=[]
 selected_options_extr=[]
+selected_options_app=[]
 selected_options_comm=[]
 selected_price=[]
 carpet_cleaning=[]
@@ -483,6 +498,9 @@ if 'selected_options' not in st.session_state:
 
 if 'selected_options_extr' not in st.session_state:
     st.session_state.selected_options_extr = []
+
+if 'selected_options_app' not in st.session_state:
+    st.session_state.selected_options_app = []
 
 #DESIGN MENU
 
@@ -566,20 +584,28 @@ if menu == "ONE-OFF CLEANING":
         #selected = pd.DataFrame({'Selected Items': st.session_state.selected_options})
 
         st.write(st.session_state.selected_options)
+
+
+        st.write('---')
+        quantity_su2=display_appliances()
+
+        for option, quantity in quantity_su2.items():
+            if quantity > 0:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
+            selected_options_app.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
+            st.session_state.selected_app = selected_options_app
+ 
+        st.write(st.session_state.selected_options_app)
+        
     #___________________________________________________________________________________________________________________
         rubbish_rem, sofa_clean, quantity_su=display_extras()
-
-
         for option, quantity in quantity_su.items():
             if quantity > 0:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-
                 unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
             selected_options_extr.append(f'{option} x ({quantity}) - £{unitprice}) Rubbish Removal-({rubbish_rem}) ({timestamp})')
             st.session_state.selected_options_extr = selected_options_extr
-        
-
         st.session_state.selected_options_extr = selected_options_extr
 
         #st.write(selected_options_extr)
@@ -615,6 +641,30 @@ if menu == "ONE-OFF CLEANING":
                 extracted_quantity.append(int(extracted_quant))
 
 
+        #____________________________________________________________________________________________________________________________
+
+        item_list_app=[]
+        for item in st.session_state.selected_options_app:
+            match = re.search(r'\b(' + '|'.join(prices['Item']) + r')\b', item)
+            if match:
+                item_list_app.append(match.group())                
+
+        # Create an empty list to store the extracted values
+        extracted_values_app = []
+        for x in item_list_app:
+            unitprice1 = prices.loc[prices['Item'] == x, 'Price'].values[0]
+            extracted_values_app.append(int(unitprice1))
+
+        extracted_quantity_app = []
+
+        for eachquantity in st.session_state.selected_options_app:
+            # Extract the value using regular expressions to find the numbers inside parentheses
+            match_quantity = re.search(r'\((\d+)\)', eachquantity)
+            if match_quantity:
+                extracted_quant = match_quantity.group(1)
+                extracted_quantity_app.append(int(extracted_quant))        
+
+
         #_____________________________________________________________________________________________________________________________
 
         item_list_ext=[]
@@ -646,15 +696,26 @@ if menu == "ONE-OFF CLEANING":
 
         new_df_ext = pd.DataFrame({'Item': item_list_ext,'unit_price': extracted_values_ext, 'quantity': extracted_quantity_ext})
 
+        new_df_app = pd.DataFrame({'Item': item_list_app,'unit_price': extracted_values_app, 'quantity': extracted_quantity_app})
+
         st.table(new_df)
+
+
+        st.table(new_df_app)
+
         #____________________________________________________________________________________________________________________________________________________________________________
 
         for option in st.session_state.selected_options:
             st.sidebar.write(f'- {option}')
 
-        for option in st.session_state.selected_options_extr:
 
+        for option in st.session_state.selected_options_app:
             st.sidebar.write(f'- {option}')
+
+        for option in st.session_state.selected_options_extr:
+            st.sidebar.write(f'- {option}')
+
+
 
         if option_services in ['House', 'Flat']:
 
@@ -696,9 +757,10 @@ if menu == "ONE-OFF CLEANING":
 
 
         total = calculate_total(new_df)
+        total_app = calculate_total(new_df_app)
         tot_ext = calculate_total_ext(new_df_ext)
 
-        total_amount= total+tot_ext+rubbish_rem_price
+        total_amount= total+total_app+tot_ext+rubbish_rem_price
 
         net=total_amount-(discount_tot/100)*total_amount
 
