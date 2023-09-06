@@ -982,9 +982,8 @@ if menu == "ONE-OFF CLEANING":
 
                         URL_STRING = payment_link_url
 
-                        st.markdown(
-                            f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Action Text on Button</a>',
-                            unsafe_allow_html=True)                
+                        st.components.v1.html(
+                            f'<script>window.open("{URL_STRING}", "_self");</script>')               
 
             else:
 
