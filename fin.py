@@ -766,8 +766,8 @@ if menu == "ONE-OFF CLEANING":
         st.sidebar.markdown('### Applied Discount:')
 
 
-        st.sidebar.markdown(f'**${(discount_tot/100)*total_amount:.2f}**')
-        st.sidebar.markdown('### Net Total:')
+        st.sidebar.markdown(f'**£{(discount_tot/100)*total_amount:.2f}**')
+        st.sidebar.markdown('### Net Total:£')
         st.sidebar.markdown(f'<p style="font-size: 34px;">£{net:.2f}</p>', unsafe_allow_html=True)
 
 
@@ -980,7 +980,11 @@ if menu == "ONE-OFF CLEANING":
                         time.sleep(5)  # Wait for 5 seconds
                         st.write(payment_link_url)
 
-                        webbrowser.open_new_tab(payment_link_url)                   
+                        URL_STRING = payment_link_url
+
+                        st.markdown(
+                            f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Action Text on Button</a>',
+                            unsafe_allow_html=True)                
 
             else:
 
