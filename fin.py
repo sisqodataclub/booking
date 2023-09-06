@@ -339,16 +339,15 @@ def generate_unique_id(email):
 quantity_su=0
 def display_extras():
     st.write('---')
-
     st.title('HOUSE CONDITION')
 
     # Display form for name, address, and number input
-    st.write("Extra Services")
+    
     quantities={}
     
     rubbish_rem = st.radio('DO YOU WANT US TO GET RID OF ALL RUBBISH BAG AT THE END OF THE CLEANING', yesno, index=1)
     st.title('EXTRA SERVICES')
-    sofa_clean = st.radio('DO YOU NEED YOUR SOFA/UPHOKSTERY CLEANED', yesno, index=1)
+    sofa_clean = st.radio('DO YOU NEED YOUR SOFA OR UPHOLSTERY OR CARPET CLEAN?', yesno, index=1)
     if sofa_clean == 'Yes':
         for sub_option in sofa_upsterly_types:
             quantity_su = st.number_input(f'Quantity for {sub_option}:', min_value=0, value=0, step=1)
