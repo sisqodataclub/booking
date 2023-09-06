@@ -340,13 +340,14 @@ quantity_su=0
 def display_extras():
     st.write('---')
 
-    st.title('EXTRA SERVICES')
+    st.title('HOUSE CONDITION')
 
     # Display form for name, address, and number input
     st.write("Extra Services")
     quantities={}
     
     rubbish_rem = st.radio('DO YOU WANT US TO GET RID OF ALL RUBBISH BAG AT THE END OF THE CLEANING', yesno, index=1)
+    st.title('EXTRA SERVICES')
     sofa_clean = st.radio('DO YOU NEED YOUR SOFA/UPHOKSTERY CLEANED', yesno, index=1)
     if sofa_clean == 'Yes':
         for sub_option in sofa_upsterly_types:
@@ -367,6 +368,7 @@ def display_options():
     
     return quantities
 def display_appliances():
+    st.title('SELECT APPLIANCES THAT NEED CLEANING')
     # Display form for name, address, and number input
     quantities={}
     for sub_option in appliances:
@@ -514,8 +516,6 @@ menu = option_menu(None, ["ONE-OFF CLEANING", "REGULAR CLEANING"],
 )
 
 selected_options_data.append(menu)
-
-
 
 st.sidebar.success('BOOKING SUMMARY')
 
@@ -695,11 +695,6 @@ if menu == "ONE-OFF CLEANING":
         new_df_ext = pd.DataFrame({'Item': item_list_ext,'unit_price': extracted_values_ext, 'quantity': extracted_quantity_ext})
 
         new_df_app = pd.DataFrame({'Item': item_list_app,'unit_price': extracted_values_app, 'quantity': extracted_quantity_app})
-
-        st.table(new_df)
-
-
-        st.table(new_df_app)
 
         #____________________________________________________________________________________________________________________________________________________________________________
 
