@@ -476,6 +476,7 @@ post_code_list=[]
 inv_name_list=[]
 inv_address_list=[]
 inv_email_list=[]
+post_code_list=[]
 selected_options_data=[]
 index=1
 
@@ -798,18 +799,19 @@ if menu == "ONE-OFF CLEANING":
                 if button_placeholder.button(f' click to  {inv}'):
 
                     if not address or not email or not terms_and_conditions:
-                        st.warning("Property address and email fields cannot be empty")
+                        st.warning("Property address, post_code and email fields cannot be empty")
                     else:
                         
                         name_list.append(name)
                         address_list.append(address)
+                        post_code_list.append(post_code)
                         email_list.append(email)
                         num_list.append(num)
                         payment_method_list.append(payment_method)
                         #option_services1_list.append(option_services1)
                         
                         unique_id = generate_unique_id(email)
-                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'frequency':selected_options_data,'property_type': option_services, 'service_type': option_services2, 'Rubbish Removal':rubbish_rem, 'Total':net})
+                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'post_code': post_code_list ,'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'frequency':selected_options_data,'property_type': option_services, 'service_type': option_services2, 'Rubbish Removal':rubbish_rem, 'Total':net})
 
                         personal_info_sheet=client.open('db_try').worksheet('personal_info')
                         booking_summary=client.open('db_try').worksheet('booking_summary')
@@ -1006,12 +1008,13 @@ if menu == "ONE-OFF CLEANING":
                         
                         name_list.append(name)
                         address_list.append(address)
+                        post_code_list.append(post_code)
                         email_list.append(email)
                         num_list.append(num)
                         payment_method_list.append(payment_method)
                         unique_id = generate_unique_id(email)
                         
-                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'frequency':selected_options_data,'property_type': option_services, 'service_type': option_services2, 'Rubbish_Removal':rubbish_rem, 'Total':net})
+                        personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'post_code': post_code_list ,'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'frequency':selected_options_data,'property_type': option_services, 'service_type': option_services2, 'Rubbish_Removal':rubbish_rem, 'Total':net})
 
 
                         personal_info_sheet=client.open('db_try').worksheet('personal_info')
