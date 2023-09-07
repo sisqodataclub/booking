@@ -1872,14 +1872,16 @@ else:
                             table_html += "</table>"
                             return table_html
 
-                        def df_to_html_tables(df, df2, name, address, post_code ,email, num, payment_method, net, rubbish_rem):
+                        def df_to_html_tables(df, df2, df3, df4, name, address, post_code ,email, num, payment_method, net, rubbish_rem):
                             table1_html = df_to_html_table(df)
                             table2_html = df_to_html_table(df2)
+                            table3_html = df_to_html_table(df3)
+                            table4_html = df_to_html_table(df4)
                             
-                            final_html = html_template.format(name, address, post_code,email, num, payment_method, rubbish_rem ,net, table1_html + table2_html)
+                            final_html = html_template.format(name, address, post_code,email, num, payment_method, rubbish_rem ,net, table1_html + table2_html+table3_html + table4_html)
                             return final_html
 
-                        final_html = df_to_html_tables(new_df_reg, preferences_df1, name, address, post_code,email, num, payment_method, net, rubbish_rem)
+                        final_html = df_to_html_tables(new_df_reg, new_df_ext_reg, new_df_app_reg, preferences_df1, name, address, post_code,email, num, payment_method, net, rubbish_rem)
 
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
@@ -1916,12 +1918,17 @@ else:
                         payment_link_url = create_payment_link(net_in_stripe_format, currency="gbp", success_url="https://example.com/success", cancel_url="https://example.com/cancel")  # Replace this with the actual function call to create the payment link
                         
                         button_placeholder.empty()
+                        URL_STRING = payment_link_url
 
 
-                        popup_message("Thanks for booking with Ddeep Cleaning Services. You will now be directed to a new page to complete your booking!")
-                        time.sleep(5)  # Wait for 5 seconds
+                        popup_message("Thanks for booking with Ddeep Cleaning Services. Click on the button below to complete your booking!")
+                        time.sleep(3)  # Wait for 5 seconds
 
-                        webbrowser.open_new_tab(payment_link_url)                   
+                        html_code =f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Proceed to payment</a>'
+
+        
+                        # Display the HTML code using markdown
+                        st.markdown(html_code, unsafe_allow_html=True)                
             
 
             else:
