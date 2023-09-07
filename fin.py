@@ -828,8 +828,15 @@ if menu == "ONE-OFF CLEANING":
                         for row in values2:
                             row.insert(0, unique_id)
 
+                        values3= new_df_app.values.tolist()
+
+                        # Adding the unique ID to each row
+                        for row in values3:
+                            row.insert(0, unique_id)
+
                         booking_summary.append_rows(values1)
                         booking_summary.append_rows(values2)
+                        booking_summary.append_rows(values3)
 
 
                         html_template = """
@@ -983,11 +990,11 @@ if menu == "ONE-OFF CLEANING":
                         # Create the HTML code for redirection
                         html_code =f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Proceed to payment</a>'
 
-                        h11= """
-                            <meta http-equiv="refresh" content="0; url=try" />
-                            """ 
+                        #h11= """
+                        #    <meta http-equiv="refresh" content="0; url=try" />
+                        #    """ 
                         # Display the HTML code using markdown
-                        st.markdown(h11, unsafe_allow_html=True)
+                        st.markdown(html_code, unsafe_allow_html=True)
 
             else:
 
@@ -1024,6 +1031,14 @@ if menu == "ONE-OFF CLEANING":
                         for row in values2:
                             row.insert(0, unique_id)
 
+
+                        values3= new_df_app.values.tolist()
+
+                        # Adding the unique ID to each row
+                        for row in values3:
+                            row.insert(0, unique_id)
+
+                        booking_summary.append_rows(values3)
                         booking_summary.append_rows(values1)
                         booking_summary.append_rows(values2)
 
@@ -1127,17 +1142,15 @@ if menu == "ONE-OFF CLEANING":
                             table_html += "</table>"
                             return table_html
 
-                        def df_to_html_tables(df, df2, name, address, email, num, payment_method,  rubbish_rem, net):
+                        def df_to_html_tables(df, df2, df3, name, address, email, num, payment_method,  rubbish_rem, net):
                             table1_html = df_to_html_table(df)
                             table2_html = df_to_html_table(df2)
+                            table3_html = df_to_html_table(df3)
                             
-                            final_html = html_template.format(name, address, email, num, payment_method, rubbish_rem ,net, table1_html + table2_html)
+                            final_html = html_template.format(name, address, email, num, payment_method, rubbish_rem ,net, table1_html + table2_html+table3_html)
                             return final_html
 
-
-                        
-
-                        final_html = df_to_html_tables(new_df, new_df_ext, name, address, email, num, payment_method, rubbish_rem,net)
+                        final_html = df_to_html_tables(new_df, new_df_app,new_df_ext, name, address, email, num, payment_method, rubbish_rem,net)
 
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
@@ -1172,17 +1185,19 @@ if menu == "ONE-OFF CLEANING":
                             
                         button_placeholder.empty()
                         popup_message("Thanks for booking with Ddeep Cleaning Services. The booking details has been sent to the email you provided!")
-                        time.sleep(5)  # Wait for 5 seconds
-                        webbrowser.open_new_tab('https://www.google.co.uk/') 
+                        time.sleep(3)  # Wait for 5 seconds
+                        h11= """
+                            <meta http-equiv="refresh" content="0; url=try" />
+                            """ 
+                        # Display the HTML code using markdown
+                        st.markdown(h11, unsafe_allow_html=True)
                         
 
         #_____________________________________________________________________________________________________________________________________
 
         if inv == 'Send Quote by email':
 
-
-            if button_placeholder.button(f' now  {inv}'):
-
+            if button_placeholder.button(f' Click To  {inv}'):
 
                 if not inv_email:
                     st.warning("email field cannot be empty")
@@ -1204,7 +1219,23 @@ if menu == "ONE-OFF CLEANING":
                     # Adding the unique ID to each row
                     for row in values1:
                         row.insert(0, unique_id)
+                    
+
+                    values2= new_df_ext.values.tolist()
+
+                    # Adding the unique ID to each row
+                    for row in values2:
+                        row.insert(0, unique_id)
+
+                    values3= new_df_app.values.tolist()
+
+                    # Adding the unique ID to each row
+                    for row in values3:
+                        row.insert(0, unique_id)
+
                     quote_summary.append_rows(values1)
+                    quote_summary.append_rows(values2)
+                    quote_summary.append_rows(values3)
 
                     #__________________________________________________________________________________________________________________
 
@@ -1273,7 +1304,12 @@ if menu == "ONE-OFF CLEANING":
                                     <br>
                                     Email: {}
                                     <br>
-                                    Phone Number: {}
+                                    Payment Method: {}
+                                    <br>
+                                    Rubbish Removal (£5): {}
+                                    <br>
+                                    TOTAL: {}
+                                    <br>
                                     
                                 </li>
                             </ul>
@@ -1284,45 +1320,43 @@ if menu == "ONE-OFF CLEANING":
                     </html>
                     """
 
-                    def df_to_html_tables(df, name, address, email, num):
-                        # Create a table for each column
-                        tables_html = ""
+                    def df_to_html_table(df):
+                        table_html = "<table>"
+
+                        # Add table header row
+                        table_html += "<tr>"
                         for col in df.columns:
-                            rows = df[col].values.tolist()
+                            table_html += f"<th>{col}</th>"
+                        table_html += "</tr>"
+                        
+                        for index, row in df.iterrows():
+                            table_html += "<tr>"
+                            for value in row:
+                                table_html += f"<td>{value}</td>"
+                            table_html += "</tr>"
+                        
+                        table_html += "</table>"
+                        return table_html
 
-                            # Create a new table with multiple rows
-                            table_html = """
-                            <table>
-                                <tr>
-                                    <th>{}</th>
-                                </tr>
-                            """.format(col)
 
-                            for row in rows:
-                                table_html += """
-                                <tr>
-                                    <td>{}</td>
-                                </tr>
-                                """.format(row)
-
-                            table_html += "</table>"
-
-                            # Append the table to the tables_html string
-                            tables_html += table_html
-
-                        # Insert the tables and customer information into the html string
-                        final_html = html_template.format(name, address, email, num,  tables_html)
-
+                    def df_to_html_tables(df, df2, df3, inv_name, inv_address, inv_email, payment_method,  rubbish_rem, net):
+                        table1_html = df_to_html_table(df)
+                        table2_html = df_to_html_table(df2)
+                        table3_html = df_to_html_table(df3)
+                        
+                        final_html = html_template.format(inv_name, inv_address, inv_email, payment_method, rubbish_rem, net, table1_html + table2_html+table3_html)
                         return final_html
 
-                    final_html = df_to_html_tables(new_df, name, address, email, num)
+
+
+                    final_html = df_to_html_tables(new_df, new_df_app,new_df_ext, inv_name, inv_address, inv_email, payment_method, rubbish_rem, net)
 
                     smtp_server = "smtp.gmail.com"
                     smtp_port = 587
                     smtp_username = "clean@ddeepcleaningservices.com"
                     smtp_password = "acrmtrkgyezawleg"
                     email_from = "clean@ddeepcleaningservices.com"
-                    email_to = 'fd92uk@gmail.com'
+                    email_to = email
                     email_subject = "INVOICE@DDEEP CLEANING SERVICES"
                     email_body = "Thank you for choosing Ddeep Cleaning Services for your cleaning needs. We look forward to serving you again and exceeding your expectations. Please find attached your booking invoice."
 
@@ -1347,19 +1381,16 @@ if menu == "ONE-OFF CLEANING":
                         st.success("Email sent successfully!")
                     except Exception as e:
                         st.error(f"Error sending email: {str(e)}")
-
-
-
-
                     button_placeholder.empty()
 
-
                     popup_message("Your quote has been sent to the email address you provided!")
-                    time.sleep(5)  # Wait for 5 seconds
+                    time.sleep(3)  # Wait for 5 seconds
 
-
-
-                    webbrowser.open_new_tab('http://localhost:8502/tc')   
+                    h11= """
+                        <meta http-equiv="refresh" content="0; url=try" />
+                        """ 
+                    # Display the HTML code using markdown
+                    st.markdown(h11, unsafe_allow_html=True)
 
     ############################################################################################################################################
 
