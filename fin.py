@@ -771,7 +771,7 @@ if menu == "ONE-OFF CLEANING":
 
 
 
-        st.write(f'<p style="font-size: 34px;">Total: {net:.2f}</p>', unsafe_allow_html=True)
+        st.write(f'<p style="font-size: 34px;">Total:£ {net:.2f}</p>', unsafe_allow_html=True)
 
         #for x in st.session_state.new_list:
         #    st.sidebar.write(f'{x}')
