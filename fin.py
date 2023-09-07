@@ -1753,9 +1753,28 @@ else:
 
                         reg_cleaning_sheet=client.open('db_try').worksheet('reg_cleaning')
                         reg_cleaning_sheet_data = new_df_reg.values.tolist()
+
+                        for row in reg_cleaning_sheet_data:
+                            row.insert(0, unique_id)
+
+                        
                         reg_cleaning_sheet_data2= new_df_ext_reg.values.tolist()
+
+
+                        for row in reg_cleaning_sheet_data2:
+                            row.insert(0, unique_id)
+
+
+                        reg_cleaning_sheet_data3= new_df_app_reg.values.tolist()
+
+
+                        for row in reg_cleaning_sheet_data3:
+                            row.insert(0, unique_id)
+
+                        
                         reg_cleaning_sheet.append_rows(reg_cleaning_sheet_data)
                         reg_cleaning_sheet.append_rows(reg_cleaning_sheet_data2)
+                        reg_cleaning_sheet.append_rows(reg_cleaning_sheet_data3)
 
                         reg_cleaning_pers_sheet=client.open('db_try').worksheet('reg_cleaning_pers')
                         reg_cleaning_pers_df_data=reg_cleaning_pers_df.values.tolist()
