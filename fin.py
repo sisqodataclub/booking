@@ -538,7 +538,7 @@ with st.container():
     with right_col1:
         option_services = st.radio("Select a property type:", prop_type)
     with left_col1:
-        if option_services in ['Commercial Property', 'Other']:
+        if option_services in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'Other']:
             option_services1= st.radio("Select Business Type", commercial_prop)
         else:
             option_services2= st.radio("Select Service type", service_type1)
@@ -557,7 +557,7 @@ if menu == "ONE-OFF CLEANING":
     right_col2, left_col2 =st.columns(2)
 
         #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
-    if option_services not in ['Commercial Property', 'Other']:
+    if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'Other']:
         st.write("Select the areas of the property that need cleaning:")
         quantity_su1=0
 
