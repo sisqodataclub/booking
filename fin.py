@@ -984,7 +984,7 @@ if menu == "ONE-OFF CLEANING":
                         html_code =f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Proceed to payment</a>'
 
                         h11= """
-                            <meta http-equiv="refresh" content="0; url=try.py " />
+                            <meta http-equiv="refresh" content="0; url=try" />
                             """ 
                         # Display the HTML code using markdown
                         st.markdown(h11, unsafe_allow_html=True)
