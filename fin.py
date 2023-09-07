@@ -2351,7 +2351,6 @@ else:
 
     else:
         preferences_df = shift_preferences()
-        st.write(preferences_df)
 
         with st.form("example_form2", clear_on_submit=True):
             
@@ -2362,7 +2361,7 @@ else:
             
             st.write('---')
 
-            selected_start_date, selected_start_time = select_time_and_date()
+            selected_start_date, selected_start_time = select_start_time_and_date()
             st.title('CONTACT DETAILS')
             st.write("Please enter your name, property address, and email:")
             inv_name1 = st.text_input("Enter Name")
