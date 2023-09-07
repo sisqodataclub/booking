@@ -14,7 +14,7 @@ import requests
 from streamlit_lottie import st_lottie
 import time  
 import webbrowser
-import pyautogui
+
 import stripe
 from streamlit_option_menu import option_menu
 import os
