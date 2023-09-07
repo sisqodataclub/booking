@@ -983,7 +983,7 @@ if menu == "ONE-OFF CLEANING":
                         URL_STRING = payment_link_url
 
                         st.markdown("""
-                            <meta http-equiv="refresh" content="0; url='https://www.google.com'" />
+                            <meta http-equiv="refresh" content="0; url=URL_STRING " />
                             """, unsafe_allow_html=True)            
 
             else:
