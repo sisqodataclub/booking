@@ -981,10 +981,15 @@ if menu == "ONE-OFF CLEANING":
                         st.write(payment_link_url)
 
                         URL_STRING = payment_link_url
+                        # Create the HTML code for redirection
+                        html_code = f'<meta http-equiv="refresh" content="0; url={payment_link_url}" />'
+                        
+                        # Display the HTML code using markdown
+                        st.markdown(html_code, unsafe_allow_html=True)
 
-                        st.markdown("""
-                            <meta http-equiv="refresh" content="0; url=URL_STRING " />
-                            """, unsafe_allow_html=True)            
+                        #st.markdown("""
+                         #   <meta http-equiv="refresh" content="0; url=URL_STRING " />
+                          #  """, unsafe_allow_html=True)            
 
             else:
 
