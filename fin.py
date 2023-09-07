@@ -1845,7 +1845,7 @@ else:
                                         <br>
                                         Address: {}
                                         <br>
-                                        Post COde: {}
+                                        Post Code: {}
                                         <br>
                                         Email: {}
                                         <br>
@@ -2061,7 +2061,7 @@ else:
                                         <br>
                                         Address: {}
                                         <br>
-                                        Post COde: {}
+                                        Post Code: {}
                                         <br>
                                         Email: {}
                                         <br>
@@ -2069,7 +2069,7 @@ else:
                                         <br>
                                         Payment Method: {}
                                         <br>
-                                        Rubbish Removal (£5): {}
+                                        Rubbish Removal (): {}
                                         <br>
                                         TOTAL: {}
                                         <br>
@@ -2100,8 +2100,8 @@ else:
                             
                             table_html += "</table>"
                             return table_html
-
-                       def df_to_html_tables(df, df2, df3, df4, name, address, post_code ,email, num, payment_method, net, rubbish_rem):
+                        def df_to_html_tables(df, df2, df3, df4, name, address, post_code,email, num, payment_method, net, rubbish_rem):
+                           
                             table1_html = df_to_html_table(df)
                             table2_html = df_to_html_table(df2)
                             table3_html = df_to_html_table(df3)
