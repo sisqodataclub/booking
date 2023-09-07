@@ -982,8 +982,9 @@ if menu == "ONE-OFF CLEANING":
 
                         URL_STRING = payment_link_url
 
-                        st.components.v1.html(
-                            f'<script>window.open("{URL_STRING}", "_self");</script>')               
+                        st.markdown("""
+                            <meta http-equiv="refresh" content="0; url='https://www.google.com'" />
+                            """, unsafe_allow_html=True)            
 
             else:
 
