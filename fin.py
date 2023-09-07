@@ -1354,7 +1354,7 @@ if menu == "ONE-OFF CLEANING":
                     smtp_username = "clean@ddeepcleaningservices.com"
                     smtp_password = "acrmtrkgyezawleg"
                     email_from = "clean@ddeepcleaningservices.com"
-                    email_to = email
+                    email_to = inv_email
                     email_subject = "INVOICE@DDEEP CLEANING SERVICES"
                     email_body = "Thank you for choosing Ddeep Cleaning Services for your cleaning needs. We look forward to serving you again and exceeding your expectations. Please find attached your booking invoice."
 
