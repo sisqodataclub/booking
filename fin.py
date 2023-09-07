@@ -931,14 +931,15 @@ if menu == "ONE-OFF CLEANING":
                             table_html += "</table>"
                             return table_html
 
-                        def df_to_html_tables(df, df2, name, address, email, num, payment_method, net, rubbish_rem):
+                        def df_to_html_tables(df, df2, df3 name, address, email, num, payment_method,  rubbish_rem, net):
                             table1_html = df_to_html_table(df)
                             table2_html = df_to_html_table(df2)
+                            table3_html = df_to_html_table(df3)
                             
-                            final_html = html_template.format(name, address, email, num, payment_method, rubbish_rem ,net, table1_html + table2_html)
+                            final_html = html_template.format(name, address, email, num, payment_method, rubbish_rem ,net, table1_html + table2_html+table3_html)
                             return final_html
 
-                        final_html = df_to_html_tables(new_df, new_df_ext, name, address, email, num, payment_method, rubbish_rem,net)
+                        final_html = df_to_html_tables(new_df, new_df_app,new_df_ext, name, address, email, num, payment_method, rubbish_rem,net)
 
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
@@ -977,9 +978,7 @@ if menu == "ONE-OFF CLEANING":
                         button_placeholder.empty()
 
                         popup_message("Thanks for booking with Ddeep Cleaning Services. Click on the button below to complete your booking!")
-                        time.sleep(5)  # Wait for 5 seconds
-                        st.write(payment_link_url)
-
+                        time.sleep(3)  # Wait for 5 seconds
                         URL_STRING = payment_link_url
                         # Create the HTML code for redirection
                         html_code =f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Proceed to payment</a>'
