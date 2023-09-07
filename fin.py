@@ -1530,7 +1530,7 @@ else:
 
         # Get the row count using the shape attribute
         row_count = preferences_df1.shape[0]
-        st.write(row_count)
+        st.write('Days Selected:', row_count)
 
         discount_code=st.text_input('Insert discount code')
 
@@ -1728,7 +1728,7 @@ else:
                 if button_placeholder.button(f' click to  {inv}'):
 
                     if not address or not post_code or not email or not terms_and_conditions or row_count == 0:
-                        st.warning("Property address, post code and email fields cannot be empty")
+                        st.warning("Property address, post code, email and date selection fields cannot be empty")
                     else:
                         
                         name_list.append(name)
@@ -1946,11 +1946,9 @@ else:
 
             else:
 
-                if button_placeholder.button(f' click to  {inv}'):
-
-
-                    if not address or not post_code or not email or not terms_and_conditions:
-                        st.warning("Property address, post code and email fields cannot be empty")
+                if button_placeholder.button(f' click to  {inv}'):  
+                     if not address or not post_code or not email or not terms_and_conditions or row_count == 0:
+                        st.warning("Property address, post code, email and date fields cannot be empty")
                     else:
                         
                         name_list.append(name)
@@ -1969,9 +1967,28 @@ else:
 
                         reg_cleaning_sheet=client.open('db_try').worksheet('reg_cleaning')
                         reg_cleaning_sheet_data = new_df_reg.values.tolist()
+
+                        for row in reg_cleaning_sheet_data:
+                            row.insert(0, unique_id)
+
+                        
                         reg_cleaning_sheet_data2= new_df_ext_reg.values.tolist()
+
+
+                        for row in reg_cleaning_sheet_data2:
+                            row.insert(0, unique_id)
+
+
+                        reg_cleaning_sheet_data3= new_df_app_reg.values.tolist()
+
+
+                        for row in reg_cleaning_sheet_data3:
+                            row.insert(0, unique_id)
+
+                        
                         reg_cleaning_sheet.append_rows(reg_cleaning_sheet_data)
                         reg_cleaning_sheet.append_rows(reg_cleaning_sheet_data2)
+                        reg_cleaning_sheet.append_rows(reg_cleaning_sheet_data3)
 
                         reg_cleaning_pers_sheet=client.open('db_try').worksheet('reg_cleaning_pers')
                         reg_cleaning_pers_df_data=reg_cleaning_pers_df.values.tolist()
@@ -2085,21 +2102,23 @@ else:
                             table_html += "</table>"
                             return table_html
 
-                        def df_to_html_tables(df, df2, name, address, post_code ,email, num, payment_method, net, rubbish_rem):
+                       def df_to_html_tables(df, df2, df3, df4, name, address, post_code ,email, num, payment_method, net, rubbish_rem):
                             table1_html = df_to_html_table(df)
                             table2_html = df_to_html_table(df2)
+                            table3_html = df_to_html_table(df3)
+                            table4_html = df_to_html_table(df4)
                             
-                            final_html = html_template.format(name, address, post_code,email, num, payment_method, rubbish_rem ,net, table1_html + table2_html)
+                            final_html = html_template.format(name, address, post_code,email, num, payment_method, rubbish_rem ,net, table1_html + table2_html+table3_html + table4_html)
                             return final_html
 
-                        final_html = df_to_html_tables(new_df_reg, preferences_df1, name, address, post_code,email, num, payment_method, net, rubbish_rem)
+                        final_html = df_to_html_tables(new_df_reg, new_df_ext_reg, new_df_app_reg, preferences_df1, name, address, post_code,email, num, payment_method, net, rubbish_rem)
 
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
                         smtp_username = "clean@ddeepcleaningservices.com"
                         smtp_password = "acrmtrkgyezawleg"
                         email_from = "clean@ddeepcleaningservices.com"
-                        email_to = 'fd92uk@gmail.com'
+                        email_to = email
                         email_subject = "INVOICE@DDEEP CLEANING SERVICES"
                         email_body = "Thank you for choosing Ddeep Cleaning Services for your cleaning needs. We look forward to serving you again and exceeding your expectations. Please find attached your booking invoice."
 
@@ -2124,21 +2143,21 @@ else:
                             st.success("Email sent successfully!")
                         except Exception as e:
                             st.error(f"Error sending email: {str(e)}")
-
-                        net_in_stripe_format = int(net * 100)
-                        payment_link_url = create_payment_link(net_in_stripe_format, currency="gbp", success_url="https://example.com/success", cancel_url="https://example.com/cancel")  # Replace this with the actual function call to create the payment link
-                        
                         button_placeholder.empty()
                         popup_message("Thanks for booking with Ddeep Cleaning Services. The booking details has been sent to the email you provided!")
-                        time.sleep(5)  # Wait for 5 seconds
-                        webbrowser.open_new_tab('http://localhost:8502/tc') 
+                        time.sleep(3)  # Wait for 5 seconds
+                        h11= """
+                            <meta http-equiv="refresh" content="0; url=try" />
+                            """ 
+                        # Display the HTML code using markdown
+                        st.markdown(h11, unsafe_allow_html=True)
                     
         #_____________________________________________________________________________________________________________________________________
 
         if inv == 'Send Quote by email':
             if button_placeholder.button(f' now  {inv}'):
-                if not inv_email:
-                    st.warning("email field cannot be empty")
+                if not inv_email or row_count == 0:
+                    st.warning("email and date field cannot be empty")
                 else:
                     inv_name_list.append(inv_name)
                     inv_address_list.append(inv_address)
@@ -2154,6 +2173,8 @@ else:
                     quote_summary=client.open('db_try').worksheet('quote_summary_reg')
                     values1 = new_df_reg.values.tolist()
                     values2= new_df_ext_reg.values.tolist()
+                    values4= new_df_app_reg.values.tolist()
+
 
                     # Adding the unique ID to each row
                     for row in values1:
@@ -2162,8 +2183,12 @@ else:
                     for row in values2:
                         row.insert(0, unique_id)
 
+                    for row in values4:
+                        row.insert(0, unique_id)
+
                     quote_summary.append_rows(values1)
                     quote_summary.append_rows(values2)
+                    quote_summary.append_rows(values4)
 
                     reg_cleaning_hours_quote_sheet=client.open('db_try').worksheet('reg_cleaning_hours_quote')
                     values3=preferences_df1.values.tolist()
@@ -2271,21 +2296,23 @@ else:
                             table_html += "</table>"
                             return table_html
 
-                    def df_to_html_tables(df, df2, name, address,email,  rubbish_rem, net):
+                    def df_to_html_tables(df, df2,df3, df4, name, address,email,  rubbish_rem, net):
                         table1_html = df_to_html_table(df)
                         table2_html = df_to_html_table(df2)
+                        table3_html = df_to_html_table(df3)
+                        table4_html = df_to_html_table(df4)
                         
-                        final_html = html_template.format(name, address, email , rubbish_rem, net,table1_html + table2_html)
+                        final_html = html_template.format(name, address, email , rubbish_rem, net,table1_html + table2_html+table3_html + table4_html)
                         return final_html
 
-                    final_html = df_to_html_tables(new_df_reg, preferences_df1, inv_name, inv_address,inv_email, rubbish_rem, net)
+                    final_html = df_to_html_tables(new_df_reg, new_df_ext_reg, new_df_app_reg, preferences_df1, inv_name, inv_address,inv_email, rubbish_rem, net)
 
                     smtp_server = "smtp.gmail.com"
                     smtp_port = 587
                     smtp_username = "clean@ddeepcleaningservices.com"
                     smtp_password = "acrmtrkgyezawleg"
                     email_from = "clean@ddeepcleaningservices.com"
-                    email_to = 'fd92uk@gmail.com'
+                    email_to = email
                     email_subject = "INVOICE@DDEEP CLEANING SERVICES"
                     email_body = "Thank you for choosing Ddeep Cleaning Services for your cleaning needs. We look forward to serving you again and exceeding your expectations. Please find attached your booking invoice."
 
@@ -2315,7 +2342,11 @@ else:
                     popup_message("Your quote has been sent to the email address you provided!")
                     time.sleep(5)  # Wait for 5 seconds
 
-                    webbrowser.open_new_tab('http://localhost:8502/tc')   
+                    h11= """
+                        <meta http-equiv="refresh" content="0; url=try" />
+                        """ 
+                    # Display the HTML code using markdown
+                    st.markdown(h11, unsafe_allow_html=True)   
 
     ############################################################################################################################################
 
