@@ -1947,10 +1947,9 @@ else:
             else:
 
                 if button_placeholder.button(f' click to  {inv}'):  
-                     if not address or not post_code or not email or not terms_and_conditions or row_count == 0:
+                    if not address or not post_code or not email or not terms_and_conditions or row_count == 0:
                         st.warning("Property address, post code, email and date fields cannot be empty")
-                    else:
-                        
+                    else: 
                         name_list.append(name)
                         address_list.append(address)
                         post_code_list.append(post_code)
