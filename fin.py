@@ -482,12 +482,24 @@ index=1
 
 
 options_with_icons = {
-    'Kitchen': '🍳',
-    'Bathroom': '🚿',
-    'Livingroom': '🛋️',
-    'Bedroom': '🛏️',
-    'Garage': '🚗',
-    'Diningroom': '🌳',
+    'BEDROOM': '🛏️',
+    'BATHROOM': '🚿',
+    'SEPERATE TOILET': '🚽',
+    'DININGROOM': '🍽️',
+    'LIVINGROOM': '🛋️',
+    'KITCHEN': '🍳',
+    'STAIRCASES': '🪜',
+    'STUDY ROOM': '📚',
+    'EN-SUITE': '🚽🚿',
+    'BOX ROOM': '📦',
+    'CONSERVATORY': '🌿',
+    'CLOAKROOM': '🧥',
+    'ATTIC ROOM': '🔝',
+    'UTILITY ROOM': '🧺',
+    'PORCH': '🏠',
+    'BALCONY': '🏞️',
+    'GARAGE': '🚗',
+    'DOUBLE GARAGE': '🚗🚗',
 }
 # Create a dictionary to store the state of each option
 option_states = {}
