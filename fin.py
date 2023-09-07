@@ -1304,8 +1304,6 @@ if menu == "ONE-OFF CLEANING":
                                     <br>
                                     Email: {}
                                     <br>
-                                    Payment Method: {}
-                                    <br>
                                     Rubbish Removal (£5): {}
                                     <br>
                                     TOTAL: {}
@@ -1339,17 +1337,17 @@ if menu == "ONE-OFF CLEANING":
                         return table_html
 
 
-                    def df_to_html_tables(df, df2, df3, inv_name, inv_address, inv_email, payment_method,  rubbish_rem, net):
+                    def df_to_html_tables(df, df2, df3, inv_name, inv_address, inv_email,  rubbish_rem, net):
                         table1_html = df_to_html_table(df)
                         table2_html = df_to_html_table(df2)
                         table3_html = df_to_html_table(df3)
                         
-                        final_html = html_template.format(inv_name, inv_address, inv_email, payment_method, rubbish_rem, net, table1_html + table2_html+table3_html)
+                        final_html = html_template.format(inv_name, inv_address, inv_email, rubbish_rem, net, table1_html + table2_html+table3_html)
                         return final_html
 
 
 
-                    final_html = df_to_html_tables(new_df, new_df_app,new_df_ext, inv_name, inv_address, inv_email, payment_method, rubbish_rem, net)
+                    final_html = df_to_html_tables(new_df, new_df_app,new_df_ext, inv_name, inv_address, inv_email, rubbish_rem, net)
 
                     smtp_server = "smtp.gmail.com"
                     smtp_port = 587
