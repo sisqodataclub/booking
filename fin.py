@@ -1462,9 +1462,13 @@ if menu == "ONE-OFF CLEANING":
 
             popup_message("Thanks for booking with Ddeep Cleaning Services. We will contact you shortly with a quote!")
         
-            time.sleep(5)  # Wait for 5 seconds
+            time.sleep(3)  # Wait for 5 seconds
 
-            #webbrowser.open_new_tab(https://www.youtube.com/watch?v=_Um12_OlGgw)                   
+            h11= """
+                <meta http-equiv="refresh" content="0; url=try" />
+                """ 
+            # Display the HTML code using markdown
+            st.markdown(h11, unsafe_allow_html=True)                
 
 
     #build dataframe for price calculation
@@ -2391,7 +2395,7 @@ else:
                 quote_info_df1 = pd.DataFrame({'name': inv_name1,'addeess': inv_address_list1, 'email': inv_email_list1, 'id': unique_id1, 'date': selected_start_date, 'time':selected_start_time, 'det': customer_comment_list})
 
                 quote_info_sheet=client.open('db_try').worksheet('quote_info_comm')
-                reg=client.open('db_try').worksheet('Sheet16')
+                reg=client.open('db_try').worksheet('reg_cleaning_comm_hoursquote')
 
                 quote_info_data1=quote_info_df1.values.tolist()
                 quote_info_sheet.append_rows(quote_info_data1)
@@ -2406,7 +2410,12 @@ else:
 
                 popup_message("Thanks for booking with Ddeep Cleaning Services. We will contact you shortly with a quote!")
             
-                time.sleep(5)  # Wait for 5 seconds
+                time.sleep(3)  # Wait for 5 seconds
+                h11= """
+                    <meta http-equiv="refresh" content="0; url=try" />
+                    """ 
+                # Display the HTML code using markdown
+                st.markdown(h11, unsafe_allow_html=True)
 
     
 
