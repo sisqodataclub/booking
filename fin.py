@@ -976,13 +976,13 @@ if menu == "ONE-OFF CLEANING":
                         
                         button_placeholder.empty()
 
-                        popup_message("Thanks for booking with Ddeep Cleaning Services. You will now be directed to a new page to complete your booking!")
+                        popup_message("Thanks for booking with Ddeep Cleaning Services. Click on the button below to complete your booking!")
                         time.sleep(5)  # Wait for 5 seconds
                         st.write(payment_link_url)
 
                         URL_STRING = payment_link_url
                         # Create the HTML code for redirection
-                        html_code = f'<meta http-equiv="refresh" content="0; url={payment_link_url}" />'
+                        html_code =f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Proceed to payment</a>'
                         
                         # Display the HTML code using markdown
                         st.markdown(html_code, unsafe_allow_html=True)
