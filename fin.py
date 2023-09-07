@@ -1685,10 +1685,7 @@ else:
             preferences_df1['Amount'] = net/row_count
 
 
-        st.write(preferences_df1)
-        st.write(new_df_reg)
-        st.write(new_df_ext_reg)
-        st.write(f'<p style="font-size: 34px;">FIRST PAYMENT TOTAL: {net:.2f}</p>', unsafe_allow_html=True)
+        st.write(f'<p style="font-size: 34px;">FIRST PAYMENT TOTAL: £ {net:.2f}</p>', unsafe_allow_html=True)
 
         #for x in st.session_state.new_list:
         #    st.sidebar.write(f'{x}')
@@ -1722,9 +1719,6 @@ else:
             name, address, post_code,email, num, payment_method, terms_and_conditions = display_book() 
         else:
             inv_name, inv_address, inv_email,  = display_quote()
-
-
-
         button_placeholder = st.empty()
 
     #__________________________________________________________________________________________________________________________________
@@ -1733,7 +1727,7 @@ else:
             if payment_method == 'Card':
                 if button_placeholder.button(f' click to  {inv}'):
 
-                    if not address or not post_code or not email or not terms_and_conditions:
+                    if not address or not post_code or not email or not terms_and_conditions or row_count == 0:
                         st.warning("Property address, post code and email fields cannot be empty")
                     else:
                         
