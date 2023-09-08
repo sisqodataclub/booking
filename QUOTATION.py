@@ -149,6 +149,7 @@ def loading_data():
 token = st.secrets.token.token
 app_key = st.secrets.app_key.app_key
 app_secret = st.secrets.app_secret.app_secret
+smtp = st.secrets.smtp.smtp
     
 dbx = dropbox.Dropbox(app_key=app_key,
                      app_secret=app_secret,
@@ -962,7 +963,7 @@ if menu == "ONE-OFF CLEANING":
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
                         smtp_username = "clean@ddeepcleaningservices.com"
-                        smtp_password = "acrmtrkgyezawleg"
+                        smtp_password = smtp
                         email_from = "clean@ddeepcleaningservices.com"
                         email_to = email
                         email_subject = "INVOICE@DDEEP CLEANING SERVICES"
@@ -1167,7 +1168,7 @@ if menu == "ONE-OFF CLEANING":
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
                         smtp_username = "clean@ddeepcleaningservices.com"
-                        smtp_password = "acrmtrkgyezawleg"
+                        smtp_password = smtp
                         email_from = "clean@ddeepcleaningservices.com"
                         email_to = email
                         email_subject = "INVOICE@DDEEP CLEANING SERVICES"
@@ -1364,7 +1365,7 @@ if menu == "ONE-OFF CLEANING":
                     smtp_server = "smtp.gmail.com"
                     smtp_port = 587
                     smtp_username = "clean@ddeepcleaningservices.com"
-                    smtp_password = "acrmtrkgyezawleg"
+                    smtp_password = smtp
                     email_from = "clean@ddeepcleaningservices.com"
                     email_to = inv_email
                     email_subject = "INVOICE@DDEEP CLEANING SERVICES"
@@ -1915,7 +1916,7 @@ else:
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
                         smtp_username = "clean@ddeepcleaningservices.com"
-                        smtp_password = "acrmtrkgyezawleg"
+                        smtp_password = smtp
                         email_from = "clean@ddeepcleaningservices.com"
                         email_to = 'fd92uk@gmail.com'
                         email_subject = "INVOICE@DDEEP CLEANING SERVICES"
@@ -2131,7 +2132,7 @@ else:
                         smtp_server = "smtp.gmail.com"
                         smtp_port = 587
                         smtp_username = "clean@ddeepcleaningservices.com"
-                        smtp_password = "acrmtrkgyezawleg"
+                        smtp_password = smtp
                         email_from = "clean@ddeepcleaningservices.com"
                         email_to = email
                         email_subject = "INVOICE@DDEEP CLEANING SERVICES"
@@ -2325,7 +2326,7 @@ else:
                     smtp_server = "smtp.gmail.com"
                     smtp_port = 587
                     smtp_username = "clean@ddeepcleaningservices.com"
-                    smtp_password = "acrmtrkgyezawleg"
+                    smtp_password = smtp
                     email_from = "clean@ddeepcleaningservices.com"
                     email_to = email
                     email_subject = "INVOICE@DDEEP CLEANING SERVICES"
