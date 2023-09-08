@@ -569,7 +569,7 @@ if menu == "ONE-OFF CLEANING":
 
         #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
     if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'OTHER']:
-        st.write("Select the areas of the property that need cleaning:")
+        st.title("Select the areas of the property that need cleaning:")
         quantity_su1=0
 
         
