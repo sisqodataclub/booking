@@ -1490,7 +1490,7 @@ if menu == "ONE-OFF CLEANING":
 else:
     right_col2, left_col2 =st.columns(2)
     if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'OTHER']:
-        st.write("Select the areas of the property that need cleaning:")
+        st.title("Select the areas of the property that need cleaning:")
         quantity_su1=0
         
         with st.container():
@@ -1651,7 +1651,7 @@ else:
             
             else:
                 rubbish_rem_price=10
-                st.sidebar.write(f'- Rubbish Removal-{rubbish_rem} {rubbish_rem_price}')
+                st.sidebar.write(f'- FURNISHED -{rubbish_rem} {rubbish_rem_price}')
 
         #__________________________________________________________________________________________________________________________________
 
