@@ -1002,7 +1002,7 @@ if menu == "ONE-OFF CLEANING":
                         html_code =f'<a href="{URL_STRING}" style="display: inline-block; padding: 12px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 4px;">Proceed to payment</a>'
 
                         #h11= """
-                        #    <meta http-equiv="refresh" content="0; url=try" />
+                        #    <meta http-equiv="refresh" content="0; url=TERMS-AND-CONDITIONS" />
                         #    """ 
                         # Display the HTML code using markdown
                         st.markdown(html_code, unsafe_allow_html=True)
@@ -1199,7 +1199,7 @@ if menu == "ONE-OFF CLEANING":
                         popup_message("Thanks for booking with Ddeep Cleaning Services. The booking details has been sent to the email you provided!")
                         time.sleep(3)  # Wait for 5 seconds
                         h11= """
-                            <meta http-equiv="refresh" content="0; url=TERMS AND CONDITIONS" />
+                            <meta http-equiv="refresh" content="0; url=TERMS-AND-CONDITIONS" />
                             """ 
                         # Display the HTML code using markdown
                         st.markdown(h11, unsafe_allow_html=True)
@@ -1397,7 +1397,7 @@ if menu == "ONE-OFF CLEANING":
                     time.sleep(3)  # Wait for 5 seconds
 
                     h11= """
-                        <meta http-equiv="refresh" content="0; url=TERMS AND CONDITIONS" />
+                        <meta http-equiv="refresh" content="0; url=TERMS-AND-CONDITIONS" />
                         """ 
                     # Display the HTML code using markdown
                     st.markdown(h11, unsafe_allow_html=True)
@@ -1477,7 +1477,7 @@ if menu == "ONE-OFF CLEANING":
             time.sleep(3)  # Wait for 5 seconds
 
             h11= """
-                <meta http-equiv="refresh" content="0; url=TERMS AND CONDITIONS" />
+                <meta http-equiv="refresh" content="0; url=TERMS-AND-CONDITIONS" />
                 """ 
             # Display the HTML code using markdown
             st.markdown(h11, unsafe_allow_html=True)                
@@ -2162,7 +2162,7 @@ else:
                         popup_message("Thanks for booking with Ddeep Cleaning Services. The booking details has been sent to the email you provided!")
                         time.sleep(3)  # Wait for 5 seconds
                         h11= """
-                            <meta http-equiv="refresh" content="0; url=TERMS AND CONDITIONS" />
+                            <meta http-equiv="refresh" content="0; url=TERMS-AND-CONDITIONS" />
                             """ 
                         # Display the HTML code using markdown
                         st.markdown(h11, unsafe_allow_html=True)
@@ -2358,7 +2358,7 @@ else:
                     time.sleep(5)  # Wait for 5 seconds
 
                     h11= """
-                        <meta http-equiv="refresh" content="0; url=TERMS AND CONDITIONS" />
+                        <meta http-equiv="refresh" content="0; url=TERMS-AND-CONDITIONS" />
                         """ 
                     # Display the HTML code using markdown
                     st.markdown(h11, unsafe_allow_html=True)   
@@ -2424,7 +2424,7 @@ else:
             
                 time.sleep(3)  # Wait for 5 seconds
                 h11= """
-                    <meta http-equiv="refresh" content="0; url=TERMS AND CONDITIONS" />
+                    <meta http-equiv="refresh" content="0; url=TERMS-AND-CONDITIONS" />
                     """ 
                 # Display the HTML code using markdown
                 st.markdown(h11, unsafe_allow_html=True)
