@@ -499,8 +499,7 @@ options_with_icons = {
     'PORCH': '🏠',
     'BALCONY': '🏞️',
     'GARAGE': '🚗',
-    'DOUBLE GARAGE': '🚗🚗',
-}
+    'DOUBLE GARAGE': '🚗🚗',}
 # Create a dictionary to store the state of each option
 option_states = {}
 #____________________________________________________________________________________________________________
