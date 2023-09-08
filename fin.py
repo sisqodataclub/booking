@@ -568,7 +568,7 @@ if menu == "ONE-OFF CLEANING":
     right_col2, left_col2 =st.columns(2)
 
         #option = st.selectbox("Select an option", ["Option 1", "Option 2"])
-    if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'Other']:
+    if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'OTHER']:
         st.write("Select the areas of the property that need cleaning:")
         quantity_su1=0
 
@@ -719,7 +719,7 @@ if menu == "ONE-OFF CLEANING":
 
 
 
-        if option_services in ['House', 'Flat']:
+        if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'OTHER']:
 
             if rubbish_rem== 'No':
 
@@ -1489,7 +1489,7 @@ if menu == "ONE-OFF CLEANING":
 ########################################################################################################
 else:
     right_col2, left_col2 =st.columns(2)
-    if option_services not in ['Commercial Property', 'Other']:
+    if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'OTHER']:
         st.write("Select the areas of the property that need cleaning:")
         quantity_su1=0
         
@@ -1643,7 +1643,7 @@ else:
 
 
 
-        if option_services in ['House', 'Flat']:
+        if option_services not in ['COMMERCIAL PROPERTY(office,bar/restaurant/student accomodation etc)', 'OTHER']:
 
             if rubbish_rem== 'No':
 
