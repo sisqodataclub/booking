@@ -345,9 +345,9 @@ def display_extras():
     
     quantities={}
     
-    rubbish_rem = st.radio('DO YOU WANT US TO GET RID OF ALL RUBBISH BAG AT THE END OF THE CLEANING', yesno, index=1)
-    st.title('EXTRA SERVICES')
-    sofa_clean = st.radio('DO YOU NEED YOUR SOFA OR UPHOLSTERY OR CARPET CLEAN?', yesno, index=1)
+    rubbish_rem = st.radio('IS THE PROPERTY FURNISHED?', yesno, index=1)
+    st.title('SOFA/UPHOLSTERY/CARPET WASH')
+    sofa_clean = st.radio('DO YOU NEED YOUR SOFA OR UPHOLSTERY OR CARPET WASH AND DRY?', yesno, index=1)
     if sofa_clean == 'Yes':
         for sub_option in sofa_upsterly_types:
             quantity_su = st.number_input(f'Quantity for {sub_option}:', min_value=0, value=0, step=1)
@@ -727,7 +727,7 @@ if menu == "ONE-OFF CLEANING":
             
             else:
                 rubbish_rem_price=10
-                st.sidebar.write(f'- Rubbish Removal-{rubbish_rem} {rubbish_rem_price}')
+                st.sidebar.write(f'- Furnished -{rubbish_rem} {rubbish_rem_price}')
 
         #__________________________________________________________________________________________________________________________________
 
