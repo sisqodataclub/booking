@@ -1507,7 +1507,7 @@ else:
         for option, quantity in quantity_su1.items():
             if quantity > 0:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
+                unitprice = prices1.loc[prices1['Item'] == option, 'Price'].values[0]
             selected_options.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
             st.session_state.selected_options = selected_options
 
@@ -1519,7 +1519,7 @@ else:
         for option, quantity in quantity_su2.items():
             if quantity > 0:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
+                unitprice = prices1.loc[prices1['Item'] == option, 'Price'].values[0]
             selected_options_app.append(f'{option} x ({quantity}) - £{unitprice}) - ({timestamp})')
             st.session_state.selected_options_app = selected_options_app
  
@@ -1531,7 +1531,7 @@ else:
         for option, quantity in quantity_su.items():
             if quantity > 0:
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                unitprice = prices.loc[prices['Item'] == option, 'Price'].values[0]
+                unitprice = prices1.loc[prices1['Item'] == option, 'Price'].values[0]
             selected_options_extr.append(f'{option} x ({quantity}) - £{unitprice}) Rubbish Removal-({rubbish_rem}) ({timestamp})')
             st.session_state.selected_options_extr = selected_options_extr
         st.session_state.selected_options_extr = selected_options_extr
@@ -1553,14 +1553,14 @@ else:
 
         item_list=[]
         for item in st.session_state.selected_options:
-            match = re.search(r'\b(' + '|'.join(prices['Item']) + r')\b', item)
+            match = re.search(r'\b(' + '|'.join(prices1['Item']) + r')\b', item)
             if match:
                 item_list.append(match.group())                
 
         # Create an empty list to store the extracted values
         extracted_values = []
         for x in item_list:
-            unitprice1 = prices.loc[prices['Item'] == x, 'Price'].values[0]
+            unitprice1 = prices1.loc[prices1['Item'] == x, 'Price'].values[0]
             extracted_values.append(int(unitprice1))
 
         extracted_quantity = []
@@ -1577,14 +1577,14 @@ else:
 
         item_list_app=[]
         for item in st.session_state.selected_options_app:
-            match = re.search(r'\b(' + '|'.join(prices['Item']) + r')\b', item)
+            match = re.search(r'\b(' + '|'.join(prices1['Item']) + r')\b', item)
             if match:
                 item_list_app.append(match.group())                
 
         # Create an empty list to store the extracted values
         extracted_values_app = []
         for x in item_list_app:
-            unitprice1 = prices.loc[prices['Item'] == x, 'Price'].values[0]
+            unitprice1 = prices1.loc[prices1['Item'] == x, 'Price'].values[0]
             extracted_values_app.append(int(unitprice1))
 
         extracted_quantity_app = []
@@ -1601,14 +1601,14 @@ else:
 
         item_list_ext=[]
         for item in st.session_state.selected_options_extr:
-            match = re.search(r'\b(' + '|'.join(prices['Item']) + r')\b', item)
+            match = re.search(r'\b(' + '|'.join(prices1['Item']) + r')\b', item)
             if match:
                 item_list_ext.append(match.group())        
 
         # Create an empty list to store the extracted values
         extracted_values_ext = []
         for x in item_list_ext:
-            unitprice1 = prices.loc[prices['Item'] == x, 'Price'].values[0]
+            unitprice1 = prices1.loc[prices1['Item'] == x, 'Price'].values[0]
             extracted_values_ext.append(int(unitprice1))
 
 
