@@ -137,11 +137,15 @@ def loading_data():
     prices_values = prices_sheet.get_all_values()
     prices = pd.DataFrame(prices_values[1:], columns=prices_values[0])
 
+    prices_sheet1 = client.open('db_try').worksheet('prices1')
+    prices_values1 = prices_sheet1.get_all_values()
+    prices1 = pd.DataFrame(prices_values1[1:], columns=prices_values1[0])
+
     
     # Return the fetched data as a list of lists
-    return [prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices]
+    return [prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices, prices]
 # Call the function to get the data
-[prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices] = loading_data()
+[prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices, prices] = loading_data()
 
 
 
