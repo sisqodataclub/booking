@@ -145,7 +145,7 @@ def loading_data():
     # Return the fetched data as a list of lists
     return [prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices, prices]
 # Call the function to get the data
-[prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices, prices] = loading_data()
+[prop_type, service_type, options, kitchen_opt, service_type1, commercial_prop, sofa_upsterly_types, appliances, prices, prices1] = loading_data()
 
 
 
