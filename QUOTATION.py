@@ -787,6 +787,7 @@ if menu == "ONE-OFF CLEANING":
 
 
         st.write('---')
+        st.write(new_df)
 
         # Call the function to display the time and date selection and get the selected values
         start_date_str, start_time_str = select_time_and_date()
