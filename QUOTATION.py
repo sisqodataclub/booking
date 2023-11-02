@@ -829,7 +829,7 @@ if menu == "ONE-OFF CLEANING":
                         personal_info_df = pd.DataFrame({'name': name_list,'addeess': address_list, 'post_code': post_code_list ,'email': email_list, 'contact_number': num_list, 'payment_method': payment_method_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str, 'frequency':selected_options_data,'property_type': option_services, 'service_type': option_services2, 'Rubbish Removal':rubbish_rem, 'Total':net})
 
                         personal_info_sheet=client.open('db_try').worksheet('personal_info')
-                        booking_summary=client.open('db_try').worksheet('booking_summary')
+                        booking_summary=client.open('db_try').worksheet('Sheet1')
 
                         personal_info_data=personal_info_df.values.tolist()
                         personal_info_sheet.append_rows(personal_info_data)
