@@ -1228,7 +1228,7 @@ if menu == "ONE-OFF CLEANING":
                     quote_info_df = pd.DataFrame({'name': inv_name,'addeess': inv_address_list, 'email': inv_email_list, 'id': unique_id, 'date': start_date_str, 'time':start_time_str})
                     client = gspread.authorize(credentials)
                     quote_info_sheet=client.open('db_try').worksheet('quote_info')
-                    quote_summary=client.open('db_try').worksheet('quote_summary')
+                    quote_summary=client.open('db_try').worksheet('Sheet1')
                     quote_info_data=quote_info_df.values.tolist()
                     quote_info_sheet.append_rows(quote_info_data)
 
